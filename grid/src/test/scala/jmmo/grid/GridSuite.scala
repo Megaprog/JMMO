@@ -11,7 +11,7 @@ import org.scalatest.WordSpec
  *
  * @author Tomas Shestakov
  */
-class AllGridSpec extends WordSpec {
+class GridSuite extends WordSpec {
 
   override val nestedSuites = List(
     new GridDimensionSpec,
