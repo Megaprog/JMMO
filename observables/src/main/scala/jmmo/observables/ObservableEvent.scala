@@ -26,5 +26,5 @@ object ObservableEvent {
    */
   def apply(source: AnyRef) = new ObservableEvent(source)
 
-  def unapply(event: ObservableEvent): Option[AnyRef] = if (event eq null) None else Some(event.getSource)
+  def unapply(event: ObservableEvent) = if (event eq null) None else Some(event.getSource)
 }
