@@ -6,11 +6,13 @@ package jmmo.util
 
 import org.scalatest.WordSpec
 import org.scalatest.matchers.ShouldMatchers
+import tags.Sub
 
 /**
  * @param mapSet some instance of `MapSet` to tests
  * @author Tomas Shestakov
  */
+@Sub
 class MapSetSpec(mapSet: MapSet[String, Int]) extends WordSpec with ShouldMatchers {
 
   def this() = this(MapSet.immImm)

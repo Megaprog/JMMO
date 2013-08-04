@@ -90,6 +90,7 @@
                     <argLine>
                         -Xms2048m -Xmx2048m
                     </argLine>
+                    <suites>jmmo.grid.GridSuite</suites>
                 </configuration>
                 <executions>
                     <execution>

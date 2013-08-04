@@ -8,11 +8,13 @@ import org.scalatest.WordSpec
 import org.scalatest.matchers.ShouldMatchers
 import org.scalatest.mock.MockitoSugar
 import org.mockito.Mockito._
+import tags.Sub
 
 /**
  * @param mapCount some instance of `mapCount` to tests
  * @author Tomas Shestakov
  */
+@Sub
 class MapCountSpec(mapCount: MapCount[String]) extends WordSpec with ShouldMatchers with MockitoSugar {
 
   def this() = this(MapCount.imm)

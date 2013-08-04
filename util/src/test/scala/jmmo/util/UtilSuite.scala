@@ -4,13 +4,15 @@
 
 package jmmo.util
 
-import org.scalatest.{Tag, WordSpec}
+import org.scalatest.WordSpec
+import tags.Suite
 
 /**
  * User: Tomas
  * Date: 03.08.13
  * Time: 20:34
  */
+@Suite
 class UtilSuite extends WordSpec {
 
   override val nestedSuites = List(
