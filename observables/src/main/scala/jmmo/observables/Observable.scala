@@ -11,7 +11,7 @@ package jmmo.observables
  */
 trait Observable {
 
-  def addObservableListener()
+  def addObservableListener(listener: ObservableListener)
 
-  def removeObservableListener()
+  def removeObservableListener(listener: ObservableListener)
 }
