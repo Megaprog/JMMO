@@ -70,7 +70,7 @@ class MapCountSpec(mapCount: MapCount[String]) extends WordSpec with ShouldMatch
         mapCount
       }
 
-      val mc2 = mc1.removeKey("A", mockAction)
+      val mc2 = mc1.removeKey("A", mockAction())
       mc2("A") should be (1)
       verify(mockAction, never()).apply()
 
