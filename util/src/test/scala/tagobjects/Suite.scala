@@ -1,10 +1,10 @@
+/*
+ * Copyright (C) 2013 Tomas Shestakov. <https://github.com/Megaprog/JMMO>
+ */
+
 package tagobjects
 
 import org.scalatest.Tag
-
-/*
- * Copyright (C) 2013 Tomas Shestakov. <http://code.google.com/p/jmmo/>
- */
 
 /**
  * User: Tomas

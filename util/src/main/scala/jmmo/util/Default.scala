@@ -1,3 +1,7 @@
+/*
+ * Copyright (C) 2013 Tomas Shestakov. <https://github.com/Megaprog/JMMO>
+ */
+
 package jmmo.util
 
 /**

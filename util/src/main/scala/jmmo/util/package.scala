@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 Tomas Shestakov. <http://code.google.com/p/jmmo/>
+ * Copyright (C) 2013 Tomas Shestakov. <https://github.com/Megaprog/JMMO>
  */
 
 package jmmo
