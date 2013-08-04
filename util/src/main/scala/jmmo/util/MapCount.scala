@@ -8,16 +8,20 @@ import scala.collection.mutable
 import scala.collection.immutable
 
 /**
- * Trait for manipulate Map with Sets as value.
- * Has four derived classes with different combinations
+ * Trait for manipulate Map number of keys as value.
+ * Has tow derived classes with different combinations
  * of mutable or immutable Map and Sets:<br>
- * [[jmmo.util.MapSetMutMut]] mutable map and update;<br>
- * [[jmmo.util.MapSetImmImm]] fully immutable class.
+ * [[jmmo.util.MapCountMut]] mutable map;<br>
+ * [[jmmo.util.MapCountImm]] fully immutable class.
  * @tparam A type of map key
  * @author Tomas Shestakov
  */
 trait MapCount[A] {
 
+  /**
+   * Returns number of specified keys
+   * @param elem key value
+   */
   def apply(elem: A): Int
 
   /**
@@ -25,21 +29,21 @@ trait MapCount[A] {
    * @param elem the key to which to bind the new value
    * @return a reference to this `MapCount` if it is mutable otherwise reference to new `MapCount`
    */
-  def addCount(elem: A, action: => Unit = {}): MapCount[A]
+  def addKey(elem: A, action: => Unit = {}): MapCount[A]
 
   /**
    * Remove the specified element from the `MapCount` if current count of the element is 1 or decrement count of the element
    * @param elem the key to which to remove value
    * @return a reference to this MapSet if it is mutable otherwise reference to new MapSet
    */
-  def removeCount(elem: A, action: => Unit = {}): MapCount[A]
+  def removeKey(elem: A, action: => Unit = {}): MapCount[A]
 
   /**
    * Remove all counts of specified element
    * @param elem element to remove all counts from
    * @return a reference to this `MapCount` if it is mutable otherwise reference to new `MapCount`
    */
-  def removeAllCounts(elem: A): MapCount[A]
+  def removeAllKeys(elem: A): MapCount[A]
 
   /**
    * Remove all counts and all element from `MapCount`
@@ -73,7 +77,7 @@ class MapCountMut[A](val underlyingMap: mutable.Map[A, Int]) extends MapCountCom
 
   def this() = this(mutable.Map.empty)
 
-  def addCount(elem: A, action: => Unit = {}): this.type = {
+  def addKey(elem: A, action: => Unit = {}): this.type = {
     underlyingMap(elem) = 1 + (underlyingMap.get(elem) match {
                                  case Some(count) => count
                                  case None => { action; 0 }
@@ -81,7 +85,7 @@ class MapCountMut[A](val underlyingMap: mutable.Map[A, Int]) extends MapCountCom
     this
   }
 
-  def removeCount(elem: A, action: => Unit = {}): this.type = {
+  def removeKey(elem: A, action: => Unit = {}): this.type = {
     underlyingMap.get(elem) match {
       case Some(count) =>
         if (count > 1) {
@@ -96,7 +100,7 @@ class MapCountMut[A](val underlyingMap: mutable.Map[A, Int]) extends MapCountCom
     this
   }
 
-  def removeAllCounts(elem: A): this.type = {
+  def removeAllKeys(elem: A): this.type = {
     underlyingMap -= elem
     this
   }
@@ -111,28 +115,28 @@ class MapCountMut[A](val underlyingMap: mutable.Map[A, Int]) extends MapCountCom
    * @param elem the key/value binding
    * @return a reference to this MapSet
    */
-  def += (elem: A): this.type = this.addCount(elem)
+  def += (elem: A): this.type = this.addKey(elem)
 
   /**
    * Remove new key -> value binding from mutable MapSet.
    * @param elem the key/value binding
    * @return a reference to this MapSet
    */
-  def -= (elem: A): this.type = this.removeCount(elem)
+  def -= (elem: A): this.type = this.removeKey(elem)
 }
 
 class MapCountImm[A](val underlyingMap: immutable.Map[A, Int]) extends MapCountCommon[A] {
 
   def this() = this(immutable.Map.empty)
 
-  def addCount(elem: A, action: => Unit = {}): MapCountImm[A] = {
+  def addKey(elem: A, action: => Unit = {}): MapCountImm[A] = {
     new MapCountImm[A](underlyingMap + (elem -> (1 + (underlyingMap.get(elem) match {
                                                         case Some(count) => count
                                                         case None => { action; 0 }
                                                       }))))
   }
 
-  def removeCount(elem: A, action: => Unit = {}): MapCountImm[A] = {
+  def removeKey(elem: A, action: => Unit = {}): MapCountImm[A] = {
     underlyingMap.get(elem) match {
       case Some(count) =>
         if (count > 1) {
@@ -146,7 +150,7 @@ class MapCountImm[A](val underlyingMap: immutable.Map[A, Int]) extends MapCountC
     }
   }
 
-  def removeAllCounts(elem: A): MapCountImm[A] = {
+  def removeAllKeys(elem: A): MapCountImm[A] = {
     new MapCountImm[A](underlyingMap - elem)
   }
 
@@ -159,14 +163,14 @@ class MapCountImm[A](val underlyingMap: immutable.Map[A, Int]) extends MapCountC
    * @param elem the key/value binding
    * @return a reference to this MapSet
    */
-  def + (elem: A): MapCountImm[A] = this.addCount(elem)
+  def + (elem: A): MapCountImm[A] = this.addKey(elem)
 
   /**
    * Remove new key -> value binding from mutable MapSet.
    * @param elem the key/value binding
    * @return a reference to this MapSet
    */
-  def - (elem: A): MapCountImm[A] = this.removeCount(elem)
+  def - (elem: A): MapCountImm[A] = this.removeKey(elem)
 }
 
 /**

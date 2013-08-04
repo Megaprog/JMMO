@@ -37,7 +37,7 @@ class MapCountSpec(mapCount: MapCount[String]) extends WordSpec with ShouldMatch
       mc.underlyingMap should equal (Map(("a", 1), ("b", 2)))
     }
 
-    "provide `addCount` method to increment by one element count" in {
+    "provide `addKey` method to increment by one element count" in {
       val mockAction = mock[() => Unit]
 
       //mapCount must be empty for valid testing
@@ -46,57 +46,57 @@ class MapCountSpec(mapCount: MapCount[String]) extends WordSpec with ShouldMatch
       mapCount("A") should be (0)
 
       info("When adding to MapCount the first element it is called the action")
-      val mc1 = mapCount.addCount("A", mockAction())
+      val mc1 = mapCount.addKey("A", mockAction())
       mc1("A") should be (1)
       verify(mockAction).apply()
 
-      val mc2 = mc1.addCount("A", mockAction())
+      val mc2 = mc1.addKey("A", mockAction())
       mc2("A") should be (2)
       verifyNoMoreInteractions(mockAction)
 
-      val mc3 = mc2.addCount("B")
+      val mc3 = mc2.addKey("B")
       mc3("A") should be (2)
       mc3("B") should be (1)
     }
 
-    "provide `removeCount` method to decrement by one element count" in {
+    "provide `removeKey` method to decrement by one element count" in {
       val mockAction = mock[() => Unit]
 
       //if mapCount is immutable needed to add two "A" counts
       val mc1 = if (mapCount.isInstanceOf[MapCountImm[_]]) {
-        mapCount.addCount("A").addCount("A")
+        mapCount.addKey("A").addKey("A")
       }
       else {
         mapCount
       }
 
-      val mc2 = mc1.removeCount("A", mockAction)
+      val mc2 = mc1.removeKey("A", mockAction)
       mc2("A") should be (1)
       verify(mockAction, never()).apply()
 
-      val mc3 = mc2.removeCount("B")
+      val mc3 = mc2.removeKey("B")
       mc3("A") should be (1)
       mc3("B") should be (0)
 
       info("When removing from MapCount the last element it is called the action")
-      val mc4 = mc3.removeCount("A", mockAction())
+      val mc4 = mc3.removeKey("A", mockAction())
       mc4("A") should be (0)
       verify(mockAction).apply()
 
-      val mc5 = mc4.removeCount("A", mockAction())
+      val mc5 = mc4.removeKey("A", mockAction())
       mc5("A") should be (0)
       verifyNoMoreInteractions(mockAction)
     }
 
-    "provide `removeAllCounts` method to remove all element counts" in {
-      val mc1 = mapCount.addCount("A").addCount("A")
+    "provide `removeAllKeys` method to remove all element counts" in {
+      val mc1 = mapCount.addKey("A").addKey("A")
 
       mc1("A") should be (2)
-      val mc2 = mc1.removeAllCounts("A")
+      val mc2 = mc1.removeAllKeys("A")
       mc2("A") should be (0)
     }
 
-    "provide `+=`, `-=`, or `+`, `-` methods with same result as addCount() and removeCount()" in {
+    "provide `+=`, `-=`, or `+`, `-` methods with same result as addKey() and removeKey()" in {
       if (mapCount.isInstanceOf[MapCountImm[_]]) {
         info("fully immutable MapCountImm support `+` and `-` operators which returns new instance of MapCountImm with added or removed counts")
         //immutable MapCountImm must be empty here
@@ -115,7 +115,7 @@ class MapCountSpec(mapCount: MapCount[String]) extends WordSpec with ShouldMatch
       }
       else {
         info("mutable MapCountMut support `+=` and `-=` operators which add or remove element count and returns the same instance")
-        val mut1 = mapCount.removeAllCounts("A").removeAllCounts("B").asInstanceOf[MapCountMut[String]]
+        val mut1 = mapCount.removeAllKeys("A").removeAllKeys("B").asInstanceOf[MapCountMut[String]]
         mut1.underlyingMap.isEmpty should be (true)
 
         mut1 += "c"
