@@ -157,7 +157,7 @@ trait SingleLevelExactCache[A] extends SingleLevelCache[A] {
     if (needed) {
       (outerToInner(bounds.x) to outerToInner(bounds.x + bounds.width - 1)).flatMap(cx =>
         (outerToInner(bounds.y) to outerToInner(bounds.y + bounds.height - 1)).withFilter(cy =>
-          !rectCache.contains(cx, cy) && shape.contains(cellToPointInCenter(cx, cy))).flatMap(cy =>
+          !rectCache.contains(cx, cy) && shape.contains(cellToPointInCenter(cx, cy).toAwtPoint)).flatMap(cy =>
           getObjectsInCell(Cell(cx, cy), filter)))(builderForSet) ++
         cacheGrid.getObjectsInRectCell(luCacheCell, rdCacheCell, filter)
     }

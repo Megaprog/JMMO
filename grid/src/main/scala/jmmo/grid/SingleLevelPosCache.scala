@@ -85,7 +85,7 @@ trait SingleLevelPosCache[A] extends SingleLevelCache[A] {
     val (luCacheCell, rdCacheCell) = calcCacheBounds(bounds.x, bounds.y, bounds.x + bounds.width - 1, bounds.y + bounds.height - 1)
 
     cacheGrid.getObjectsInRectCell(luCacheCell, rdCacheCell, dualFilter(obj =>
-      shape.contains(objectPosition(obj)), filter))
+      shape.contains(objectPosition(obj).toAwtPoint), filter))
   }
 
 }

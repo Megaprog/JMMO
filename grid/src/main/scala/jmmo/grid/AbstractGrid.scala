@@ -90,7 +90,7 @@ trait AbstractGrid[A] extends GridDimension with GridObjects[A] {
     val bounds = shape.getBounds
     (outerToInner(bounds.x) to outerToInner(bounds.x + bounds.width - 1)).flatMap(cx =>
       (outerToInner(bounds.y) to outerToInner(bounds.y + bounds.height - 1)).withFilter(cy =>
-        shape.contains(cellToPointInCenter(cx, cy))).flatMap(cy => getObjectsInCell(Cell(cx, cy), filter)))(builderForSet)
+        shape.contains(cellToPointInCenter(cx, cy).toAwtPoint)).flatMap(cy => getObjectsInCell(Cell(cx, cy), filter)))(builderForSet)
   }
 }
 

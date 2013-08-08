@@ -53,10 +53,11 @@ object Point2d {
       0
   }
 
-  //Implicits to convert from Point2d to java.awt.Point and back
-  implicit def point2dToAwtPoint(point2d: Point2d): Point = new Point(point2d.x, point2d.y)
+  //Implicit class to convert from java.awt.Point to Point2d
+  implicit class ConverterAwtPoint2Point2d(point: Point) {
 
-  implicit def awtPointToPoint2d(point: Point): Point2d = Point2d(point.x, point.y)
+    def toPoint2d: Point2d = Point2d(point.x, point.y)
+  }
 }
 
 /**
@@ -118,6 +119,8 @@ case class Point2d(x: Int, y: Int) extends Ordered[Point2d] {
   def plus(other: Point2d): Point2d = plus(other.x, other.y)
 
   def compare(that: Point2d) = Point2d.compare(this.x, this.y, that.x, that.y)
+
+  def toAwtPoint: Point = new Point(x, y)
 }
 
 /**
