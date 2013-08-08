@@ -89,4 +89,14 @@ package object util {
     }
     (new Value).v
   }
+
+  /**
+   * Extracts last element of sequence.<br>
+   * <br>
+   * For example:<br>
+   * `List(1, 2, 3) match {<br>
+   *   case _ Last elem => println(elem)<br>
+   *}`
+   */
+  object Last {def unapply[A] (l: Seq[A]) = Some(l.init, l.last)}
 }
