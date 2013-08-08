@@ -41,7 +41,9 @@ object ObservableListener {
 
   type Level = Int
 
-  type Classes = collection.Set[Class[_ <: ObservableEvent]]
+  type Classes = collection.Set[EventClass]
+
+  type EventClass = Class[_ <: ObservableEvent]
 
 
   val PassAll: Filter= (_, _) => true
@@ -53,47 +55,34 @@ object ObservableListener {
   val AllClasses: Classes = Set.empty
 
 
-  def apply(handler: Handler): ObservableListener = handler
+  def apply(handler: Handler): ObservableListener = ObservableListenerImpl(handler)
 
-  def apply(handler: Handler, filter: Filter): ObservableListener = new ObservableListenerImpl(handler, filter = filter)
+  def apply(handler: Handler, filter: Filter): ObservableListener = ObservableListenerImpl(handler, filter = filter)
 
-  def apply(handler: Handler, level: Level): ObservableListener = new ObservableListenerImpl(handler, level = level)
+  def apply(handler: Handler, classes: Classes): ObservableListener = ObservableListenerImpl(handler, classes = classes)
 
-  def apply(handler: Handler, classes: Classes): ObservableListener = new ObservableListenerImpl(handler, classes = classes)
+  def apply(handler: Handler, level: Level): ObservableListener = ObservableListenerImpl(handler, level = level)
 
-  def apply(handler: Handler, filter: Filter, level: Level): ObservableListener = new ObservableListenerImpl(handler, filter, level)
+  def apply(handler: Handler, filter: Filter, classes: Classes): ObservableListener = ObservableListenerImpl(handler, filter, classes)
 
-  def apply(handler: Handler, filter: Filter, classes: Classes): ObservableListener = new ObservableListenerImpl(handler, filter, classes = classes)
+  def apply(handler: Handler, filter: Filter, level: Level): ObservableListener = ObservableListenerImpl(handler, filter, level = level)
 
-  def apply(handler: Handler, level: Level, classes: Classes): ObservableListener = new ObservableListenerImpl(handler, level = level, classes = classes)
+  def apply(handler: Handler, classes: Classes, level: Level): ObservableListener = ObservableListenerImpl(handler, classes = classes, level = level)
 
-  def apply(handler: Handler, filter: Filter, level: Level, classes: Classes): ObservableListener = new ObservableListenerImpl(handler, filter, level, classes)
+  def apply(handler: Handler, filter: Filter, classes: Classes, level: Level): ObservableListener = ObservableListenerImpl(handler, filter, classes, level)
 
 
   def unapply(listener: ObservableListener) = if (listener eq null) None else Some(listener.handler, listener.filter, listener.level, listener.classes)
 
 
-  implicit class ObservableListenerImpl(val handler: Handler) extends ObservableListener {
-    private var _filter = PassAll
-    private var _level = MaxLevel
-    private var _classes = AllClasses
+  private[ObservableListener] case class ObservableListenerImpl(handler: Handler, filter: Filter = PassAll, classes: Classes = AllClasses, level: Level = MaxLevel) extends ObservableListener
 
-    def this(handler: Handler, filter: Filter = PassAll, level: Level = MaxLevel, classes: Classes = AllClasses) {
-      this(handler)
-      _filter = filter
-      _level = level
-      _classes = classes
-    }
+  implicit class ImplicitObservableListener(val handler: Handler) extends ObservableListener {
 
-    def filter = _filter
-    def level = _level
-    def classes = _classes
+    val filter = PassAll
+    val classes = AllClasses
+    val level = MaxLevel
 
-    override def toString = "ObservableListener{" +
-      "handler=" + handler +
-      ", filter=" + filter +
-      ", level=" + level +
-      ", classes=" + classes +
-    "}"
+    override def toString = s"ImplicitObservableListener(handler=$handler, filter=$filter, classes=$classes, level=$level)"
   }
 }

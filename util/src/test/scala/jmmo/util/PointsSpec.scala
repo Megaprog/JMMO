@@ -36,9 +36,9 @@ class PointsSpec extends WordSpec with ShouldMatchers {
     }
 
     "be equal other Point2d with equal coordinates" in {
-      p1 should equal(p2)
+      p1 should equal (p2)
       p1 should not equal (p3)
-      p2 should equal(p1)
+      p2 should equal (p1)
       p2 should not equal (p3)
       p3 should not equal (p1)
       p3 should not equal (p2)
