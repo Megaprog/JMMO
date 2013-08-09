@@ -16,18 +16,42 @@ object ListenerWrapper {
 
   def apply(wrapped: ObservableListener, level: Int, chain: Observable*): ListenerWrapper = ListenerWrapperImpl(wrapped, level, chain: _*)
 
-  def apply(listener: ObservableListener, observable: Observable): ListenerWrapper = null
+  def apply(listener: ObservableListener, observable: Observable): ListenerWrapper =
+    apply(wrapped(listener), listener.level - 1, (chain(listener) :+ observable): _*)
 
 
-  def unapplySeq(wrapper: ListenerWrapper) = if (wrapper eq null) None else Some(wrapper.wrapped, wrapper.level, wrapper.chain)
+  def unapplySeq(wrapper: ListenerWrapper): Option[(ObservableListener, Int, Seq[Observable])] =
+    if (wrapper eq null) None else Some(wrapper.wrapped, wrapper.level, wrapper.chain)
 
 
-  private[ListenerWrapper] case class ListenerWrapperImpl(wrapped: ObservableListener, level: Int, chain: Observable*) extends ListenerWrapper {
+  trait WrapperEquals extends Equals {
+    this: ListenerWrapper =>
+
+    def canEqual(other: Any) = other.isInstanceOf[ListenerWrapper]
+
+    override def equals(other: Any) = other match {
+      case that @ ListenerWrapper(w, l, c @ _*) => (that canEqual this) && w == wrapped && l == level && c == chain
+      case _ => false
+    }
+  }
+
+  private[ListenerWrapper] case class ListenerWrapperImpl(wrapped: ObservableListener, level: Int, chain: Observable*)
+    extends ListenerWrapper with WrapperEquals {
 
     val handler: ObservableListener.Handler = (event, chain) => wrapped.handler(event, this.chain ++ chain)
 
     val filter: ObservableListener.Filter = (observable, chain) => wrapped.filter(observable, this.chain ++ chain)
 
-    val classes: ObservableListener.Classes = wrapped.classes
+    def classes: ObservableListener.Classes = wrapped.classes
+  }
+
+  def wrapped(listener : ObservableListener) = listener match {
+    case wrapper: ListenerWrapper => wrapper.wrapped
+    case _ => listener
+  }
+
+  def chain(listener : ObservableListener) = listener match {
+    case wrapper: ListenerWrapper => wrapper.chain
+    case _ => Seq.empty
   }
 }
