@@ -35,9 +35,11 @@ trait ObservableListener extends EventListener {
  */
 object ObservableListener {
 
-  type Handler = (ObservableEvent, Seq[Observable]) => Unit
+  type Chain = Seq[Observable]
 
-  type Filter = (Observable, Seq[Observable]) => Boolean
+  type Handler = (ObservableEvent, Chain) => Unit
+
+  type Filter = (Observable, Chain) => Boolean
 
   type Level = Int
 
