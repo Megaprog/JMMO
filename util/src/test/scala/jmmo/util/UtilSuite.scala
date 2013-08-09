@@ -18,10 +18,11 @@ class UtilSuite extends WordSpec {
   override val nestedSuites = List(
     new PointsSpec,
     new MapCountAllSpec,
-    new MapSetAllSpec
+    new MapSetAllSpec,
+    new PackageSpec
   )
 
-  "Util Framework" should {
+  "Utilities" should {
 
     "fit all specifications in package" in {}
 
