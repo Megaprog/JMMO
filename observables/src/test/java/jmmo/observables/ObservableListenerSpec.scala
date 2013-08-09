@@ -21,7 +21,7 @@ class ObservableListenerSpec extends WordSpec with ShouldMatchers {
 
       val classes = Set[ObservableListener.EventClass](classOf[MyEvent], classOf[ObservableEvent])
 
-      val listener = ObservableListener(handler, filter, classes, level)
+      val listener = ObservableListener(handler, filter, level, classes)
 
       listener.handler should be theSameInstanceAs(handler)
       listener.filter should be theSameInstanceAs(filter)
@@ -35,7 +35,7 @@ class ObservableListenerSpec extends WordSpec with ShouldMatchers {
       val level = 1
       val classes = Set[ObservableListener.EventClass](classOf[ObservableEvent])
 
-      val listener = ObservableListener(handler, filter, classes, level)
+      val listener = ObservableListener(handler, filter, level, classes)
 
       (listener match {
         case ObservableListener(h, f, l, c) if (h eq handler) && (f eq filter) && (c eq classes) && (l == level) => true

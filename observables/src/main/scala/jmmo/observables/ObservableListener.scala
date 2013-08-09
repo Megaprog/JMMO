@@ -59,30 +59,30 @@ object ObservableListener {
 
   def apply(handler: Handler, filter: Filter): ObservableListener = ObservableListenerImpl(handler, filter = filter)
 
-  def apply(handler: Handler, classes: Classes): ObservableListener = ObservableListenerImpl(handler, classes = classes)
-
   def apply(handler: Handler, level: Level): ObservableListener = ObservableListenerImpl(handler, level = level)
 
-  def apply(handler: Handler, filter: Filter, classes: Classes): ObservableListener = ObservableListenerImpl(handler, filter, classes)
+  def apply(handler: Handler, classes: Classes): ObservableListener = ObservableListenerImpl(handler, classes = classes)
 
-  def apply(handler: Handler, filter: Filter, level: Level): ObservableListener = ObservableListenerImpl(handler, filter, level = level)
+  def apply(handler: Handler, filter: Filter, classes: Classes): ObservableListener = ObservableListenerImpl(handler, filter, classes = classes)
 
-  def apply(handler: Handler, classes: Classes, level: Level): ObservableListener = ObservableListenerImpl(handler, classes = classes, level = level)
+  def apply(handler: Handler, filter: Filter, level: Level): ObservableListener = ObservableListenerImpl(handler, filter, level)
 
-  def apply(handler: Handler, filter: Filter, classes: Classes, level: Level): ObservableListener = ObservableListenerImpl(handler, filter, classes, level)
+  def apply(handler: Handler, level: Level, classes: Classes): ObservableListener = ObservableListenerImpl(handler, level = level, classes = classes)
+
+  def apply(handler: Handler, filter: Filter, level: Level, classes: Classes): ObservableListener = ObservableListenerImpl(handler, filter, level, classes)
 
 
   def unapply(listener: ObservableListener) = if (listener eq null) None else Some(listener.handler, listener.filter, listener.level, listener.classes)
 
 
-  private[ObservableListener] case class ObservableListenerImpl(handler: Handler, filter: Filter = PassAll, classes: Classes = AllClasses, level: Level = MaxLevel) extends ObservableListener
+  private[ObservableListener] case class ObservableListenerImpl(handler: Handler, filter: Filter = PassAll, level: Level = MaxLevel, classes: Classes = AllClasses) extends ObservableListener
 
   implicit class ImplicitObservableListener(val handler: Handler) extends ObservableListener {
 
     val filter = PassAll
-    val classes = AllClasses
     val level = MaxLevel
+    val classes = AllClasses
 
-    override def toString = s"ImplicitObservableListener(handler=$handler, filter=$filter, classes=$classes, level=$level)"
+    override def toString = s"ImplicitObservableListener(handler=$handler, filter=$filter, level=$level, classes=$classes)"
   }
 }

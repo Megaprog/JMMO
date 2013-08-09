@@ -11,3 +11,15 @@ trait ListenerWrapper extends ObservableListener with Equals {
 
   def wrapped: ObservableListener
 }
+
+object ListenerWrapper {
+
+  private[ListenerWrapper] case class ListenerWrapperImpl(wrapped: ObservableListener, level: Int, chain: Observable*) extends ObservableListener {
+
+    def handler: ObservableListener.Handler = ???
+
+    def filter: ObservableListener.Filter = ???
+
+    def classes: ObservableListener.Classes = ???
+  }
+}
