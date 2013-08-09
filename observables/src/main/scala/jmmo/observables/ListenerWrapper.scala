@@ -14,10 +14,10 @@ trait ListenerWrapper extends ObservableListener with Equals {
 
 object ListenerWrapper {
 
-  def apply(wrapped: ObservableListener, level: Int, chain: Observable*): ListenerWrapper = ListenerWrapperImpl(wrapped, level, chain: _*)
-
   def apply(listener: ObservableListener, observable: Observable): ListenerWrapper =
     apply(wrapped(listener), listener.level - 1, (chain(listener) :+ observable): _*)
+
+  protected[observables] def apply(wrapped: ObservableListener, level: Int, chain: Observable*): ListenerWrapper = ListenerWrapperImpl(wrapped, level, chain)
 
 
   def unapplySeq(wrapper: ListenerWrapper): Option[(ObservableListener, Int, Seq[Observable])] =
@@ -35,7 +35,7 @@ object ListenerWrapper {
     }
   }
 
-  private[ListenerWrapper] case class ListenerWrapperImpl(wrapped: ObservableListener, level: Int, chain: Observable*)
+  private[ListenerWrapper] case class ListenerWrapperImpl(wrapped: ObservableListener, level: ObservableListener.Level, chain: ObservableListener.Chain)
     extends ListenerWrapper with WrapperEquals {
 
     val handler: ObservableListener.Handler = (event, chain) => wrapped.handler(event, this.chain ++ chain)
@@ -52,6 +52,6 @@ object ListenerWrapper {
 
   def chain(listener : ObservableListener) = listener match {
     case wrapper: ListenerWrapper => wrapper.chain
-    case _ => Seq.empty
+    case _ => Vector.empty
   }
 }

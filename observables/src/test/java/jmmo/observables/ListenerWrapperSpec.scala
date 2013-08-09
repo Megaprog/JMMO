@@ -47,15 +47,38 @@ class ListenerWrapperSpec extends WordSpec with ShouldMatchers {
       }) should be (true)
     }
 
-    "have implicit conversion from (ObservableEvent, Seq[Observable]) => Unit to ObservableListener" in {
-//      val handler = (_: ObservableEvent, _: Seq[Observable]) => {}
-//
-//      import ObservableListener.ImplicitObservableListener
-//
-//      handler.handler should be theSameInstanceAs(handler)
-//      handler.filter should be theSameInstanceAs(ObservableListener.PassAll)
-//      handler.classes should be theSameInstanceAs(ObservableListener.AllClasses)
-//      handler.level should equal(ObservableListener.MaxLevel)
+    "have canEqual and equals methods to be equal ListenerWrapper with same parameters" in {
+      val observable1 = new EmptyObservable
+      val observable2 = new EmptyObservable
+      val listener = ObservableListener((_: ObservableEvent, _: Seq[Observable]) => {}, 2)
+
+      val wrapper1 = ListenerWrapper(listener, 1, observable1, observable2)
+      val wrapper2 = ListenerWrapper(listener, 1, observable1, observable2)
+      val wrapper3 = ListenerWrapper(listener, 1, observable1)
+
+      wrapper1 should equal(wrapper2)
+      wrapper2 should equal(wrapper1)
+
+      wrapper1 should not equal(wrapper3)
+      wrapper3 should not equal(wrapper1)
+    }
+
+    "have wrapped method to extract wrapped value from wrapper or original listener" in {
+      val listener = ObservableListener((_, _) => {})
+      ListenerWrapper.wrapped(listener) should be theSameInstanceAs(listener)
+
+      val wrapper = ListenerWrapper(listener, 1)
+      ListenerWrapper.wrapped(wrapper) should be theSameInstanceAs(listener)
+    }
+
+    "have chain method to extract chain value from wrapper or empty sequence from original listener" in {
+      val listener = ObservableListener((_, _) => {})
+      ListenerWrapper.chain(listener) should be ('empty)
+
+      val observable1 = new EmptyObservable
+      val observable2 = new EmptyObservable
+      val wrapper = ListenerWrapper(listener, 1, observable1, observable2)
+      ListenerWrapper.chain(wrapper) should be (Seq(observable1, observable2))
     }
   }
 }
