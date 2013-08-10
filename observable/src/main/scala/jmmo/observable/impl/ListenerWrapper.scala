@@ -1,4 +1,6 @@
-package jmmo.observable
+package jmmo.observable.impl
+
+import jmmo.observable.ObservableListener
 
 /**
  * User: Tomas
