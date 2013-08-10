@@ -1,5 +1,6 @@
 package jmmo.observable.impl
 
+import jmmo.observable.Observable
 import jmmo.observable.ObservableListener
 
 /**

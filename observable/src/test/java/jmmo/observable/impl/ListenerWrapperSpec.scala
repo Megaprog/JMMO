@@ -2,7 +2,6 @@ package jmmo.observable.impl
 
 import org.scalatest.WordSpec
 import org.scalatest.matchers.ShouldMatchers
-import jmmo.observable.impl.ListenerWrapper
 import jmmo.observable.{ObservableEvent, ObservableListener, Observable}
 
 /**
