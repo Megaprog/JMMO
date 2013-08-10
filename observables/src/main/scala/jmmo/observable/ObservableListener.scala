@@ -1,4 +1,4 @@
-package jmmo.observables
+package jmmo.observable
 
 import java.util.EventListener
 
@@ -31,7 +31,7 @@ trait ObservableListener extends EventListener {
 }
 
 /**
- * For creation instances of [[jmmo.observables.ObservableListener]]
+ * For creation instances of [[jmmo.observable.ObservableListener]]
  */
 object ObservableListener {
 

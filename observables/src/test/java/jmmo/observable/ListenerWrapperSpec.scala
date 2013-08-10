@@ -1,4 +1,4 @@
-package jmmo.observables
+package jmmo.observable
 
 import org.scalatest.WordSpec
 import org.scalatest.matchers.ShouldMatchers

@@ -2,7 +2,7 @@
  * Copyright (C) 2013 Tomas Shestakov. <https://github.com/Megaprog/JMMO>
  */
 
-package jmmo.observables
+package jmmo.observable
 
 import java.util.EventObject
 
@@ -20,9 +20,9 @@ class ObservableEvent(source: AnyRef) extends EventObject(source) {
 object ObservableEvent {
 
   /**
-   * Creates instance of the [[jmmo.observables.ObservableEvent]] with the specified event source.
+   * Creates instance of the [[jmmo.observable.ObservableEvent]] with the specified event source.
    * @param source source of the event
-   * @return new instance of the [[jmmo.observables.ObservableEvent]] class
+   * @return new instance of the [[jmmo.observable.ObservableEvent]] class
    */
   def apply(source: AnyRef) = new ObservableEvent(source)
 

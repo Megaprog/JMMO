@@ -1,4 +1,4 @@
-package jmmo.observables
+package jmmo.observable
 
 /**
  * User: Tomas

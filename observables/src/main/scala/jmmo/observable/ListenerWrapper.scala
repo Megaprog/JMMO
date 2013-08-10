@@ -1,4 +1,4 @@
-package jmmo.observables
+package jmmo.observable
 
 /**
  * User: Tomas
@@ -17,7 +17,7 @@ object ListenerWrapper {
   def apply(listener: ObservableListener, observable: Observable): ListenerWrapper =
     apply(wrapped(listener), listener.level - 1, (chain(listener) :+ observable): _*)
 
-  protected[observables] def apply(wrapped: ObservableListener, level: Int, chain: Observable*): ListenerWrapper = ListenerWrapperImpl(wrapped, level, chain)
+  protected[observable] def apply(wrapped: ObservableListener, level: Int, chain: Observable*): ListenerWrapper = ListenerWrapperImpl(wrapped, level, chain)
 
 
   def unapplySeq(wrapper: ListenerWrapper): Option[(ObservableListener, Int, Seq[Observable])] =
