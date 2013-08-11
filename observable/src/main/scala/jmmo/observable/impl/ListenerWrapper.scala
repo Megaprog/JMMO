@@ -27,8 +27,7 @@ object ListenerWrapper {
     if (wrapper eq null) None else Some(wrapper.wrapped, wrapper.level, wrapper.chain)
 
 
-  trait WrapperEquals extends Equals {
-    this: ListenerWrapper =>
+  trait WrapperEquals extends Equals { this: ListenerWrapper =>
 
     def canEqual(other: Any) = other.isInstanceOf[ListenerWrapper]
 
