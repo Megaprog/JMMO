@@ -28,7 +28,7 @@ class ObservableFirerSpec(creator: => ObservableFirer) extends WordSpec with Sho
     val handler2 = mock[ObservableListener.Handler]
     val listener2 = ObservableListener(handler2)
 
-    val event = new ObservableEvent(new AnyRef)
+    val event = new ObservableEvent(new {})
 
     "have addObservableListener method to add new listener and not allow to add duplicate one" in {
       observable.addObservableListener(listener1)
@@ -65,7 +65,23 @@ class ObservableFirerSpec(creator: => ObservableFirer) extends WordSpec with Sho
     }
 
     "allow to add or remove listeners inside event handling" in {
+      var flag = false
+      lazy val addRemoveInside: ObservableListener = ObservableListener((_, _) => {
+        observable.removeObservableListener(addRemoveInside)
+        observable.addObservableListener(listener1)
+        flag = true
+      })
 
+      reset(handler1)
+      observable.addObservableListener(addRemoveInside)
+      observable.fireObservableEvent(event)
+      flag should be (true)
+      verifyZeroInteractions(handler1)
+
+      flag = false
+      observable.fireObservableEvent(event)
+      flag should be (false)
+      verify(handler1).apply(event, Seq.empty)
     }
   }
 }
