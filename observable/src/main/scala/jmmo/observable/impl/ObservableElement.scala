@@ -7,7 +7,7 @@ import jmmo.observable.{ObservableEvent, ObservableListener, Observable}
  * Date: 09.08.13
  * Time: 9:32
  */
-trait ObservableElement extends Observable {
+trait ObservableElement extends ObservableFirer {
 
   def addObservableListener(listener: ObservableListener) {
     if (selfListenerExists(listener)) {
@@ -23,7 +23,7 @@ trait ObservableElement extends Observable {
     removeSelfListener(listener)
   }
 
-  protected def fireObservableEvent(event: ObservableEvent) {
+  protected[impl] def fireObservableEvent(event: ObservableEvent) {
     selfListeners foreach (_.handler(event, Seq.empty))
   }
 

@@ -14,17 +14,13 @@ import jmmo.observable.ObservableListener
 trait ImmutableListenersSet { this: ObservableElement =>
   protected var listeners = createImmutableListenersSet
 
-  abstract override protected def selfListenerExists(listener: ObservableListener) = listeners.contains(listener)
+  protected def selfListenerExists(listener: ObservableListener) = listeners.contains(listener)
 
-  abstract override protected def selfListeners = listeners
+  protected def selfListeners = listeners
 
-  abstract override protected def addSelfListener(listener: ObservableListener) {
-    listeners += listener
-  }
+  protected def addSelfListener(listener: ObservableListener) = listeners += listener
 
-  abstract override protected def removeSelfListener(listener: ObservableListener) {
-    listeners -= listener
-  }
+  protected def removeSelfListener(listener: ObservableListener) = listeners -= listener
 
   protected def createImmutableListenersSet = Set.empty[ObservableListener]
 }
