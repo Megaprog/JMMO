@@ -47,5 +47,25 @@ class ObservableFirerSpec(creator: => ObservableFirer) extends WordSpec with Sho
       verify(handler1).apply(event, Seq.empty)
       verify(handler2).apply(event, Seq.empty)
     }
+
+    "have removeObservableListener method to remove listener" in {
+      reset(handler1, handler2)
+      observable.removeObservableListener(listener1)
+      observable.fireObservableEvent(event)
+      verify(handler1, never()).apply(event, Seq.empty)
+      verify(handler2).apply(event, Seq.empty)
+
+      info("if removed listener doesn't contains in observable nothing happens")
+      observable.removeObservableListener(listener1)
+
+      reset(handler1, handler2)
+      observable.removeObservableListener(listener2)
+      observable.fireObservableEvent(event)
+      verifyZeroInteractions(handler1, handler2)
+    }
+
+    "allow to add or remove listeners inside event handling" in {
+
+    }
   }
 }
