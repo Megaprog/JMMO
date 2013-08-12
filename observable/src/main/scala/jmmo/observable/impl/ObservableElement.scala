@@ -14,7 +14,7 @@ trait ObservableElement extends ObservableFirer {
       throw new IllegalArgumentException(s"Observable listener $listener already exists in $this")
     }
 
-    if (listener.filter(this, Seq.empty)) {
+    if (listener.level >= 0 && listener.filter(this, Seq.empty)) {
       addSelfListener(listener)
     }
   }

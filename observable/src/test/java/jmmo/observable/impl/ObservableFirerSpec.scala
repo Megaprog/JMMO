@@ -27,6 +27,7 @@ class ObservableFirerSpec(creator: => ObservableFirer) extends WordSpec with Sho
     val listener1 = ObservableListener(handler1)
     val handler2 = mock[ObservableListener.Handler]
     val listener2 = ObservableListener(handler2)
+    val handler3 = mock[ObservableListener.Handler]
 
     val event = new ObservableEvent(new {})
 
@@ -46,6 +47,11 @@ class ObservableFirerSpec(creator: => ObservableFirer) extends WordSpec with Sho
       observable.fireObservableEvent(event)
       verify(handler1).apply(event, Seq.empty)
       verify(handler2).apply(event, Seq.empty)
+
+      info("if listener's level is smaller than zero event will not be handled")
+      observable.addObservableListener(ObservableListener(handler3, -1))
+      observable.fireObservableEvent(event)
+      verifyZeroInteractions(handler3)
     }
 
     "have removeObservableListener method to remove listener" in {
