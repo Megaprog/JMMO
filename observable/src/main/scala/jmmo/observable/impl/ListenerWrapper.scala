@@ -43,8 +43,6 @@ object ListenerWrapper {
     val handler: ObservableListener.Handler = (event, chain) => wrapped.handler(event, this.chain ++ chain)
 
     val filter: ObservableListener.Filter = (observable, chain) => wrapped.filter(observable, this.chain ++ chain)
-
-    def classes: ObservableListener.Classes = wrapped.classes
   }
 
   def wrapped(listener : ObservableListener) = listener match {
