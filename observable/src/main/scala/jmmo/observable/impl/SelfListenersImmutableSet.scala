@@ -11,16 +11,15 @@ import jmmo.observable.ObservableListener
  * Date: 11.08.13
  * Time: 9:35
  */
-trait SelfListenersImmutableSet { this: ObservableElement =>
-  protected var listeners = createImmutableListenersSet
+trait SelfListenersImmutableSet {
 
-  protected def selfListenersExists(listener: ObservableListener) = listeners.contains(listener)
+  protected var selfListeners = createSelfListeners
 
-  protected def selfListeners = listeners
+  protected def selfListenersExists(listener: ObservableListener) = selfListeners.contains(listener)
 
-  protected def selfListenersAdd(listener: ObservableListener) = listeners += listener
+  protected def selfListenersAdd(listener: ObservableListener) = selfListeners += listener
 
-  protected def selfListenersRemove(listener: ObservableListener) = listeners -= listener
+  protected def selfListenersRemove(listener: ObservableListener) = selfListeners -= listener
 
-  protected def createImmutableListenersSet = Set.empty[ObservableListener]
+  protected def createSelfListeners = Set.empty[ObservableListener]
 }
