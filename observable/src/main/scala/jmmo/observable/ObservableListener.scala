@@ -20,7 +20,7 @@ trait ObservableListener extends EventListener {
   def filter: ObservableListener.Filter
 
   /**
-   * @return Level of child Observers to which will be added the listener
+   * @return Level of child Observers to which will be added the listenerWrapper
    */
   def level: ObservableListener.Level
 }

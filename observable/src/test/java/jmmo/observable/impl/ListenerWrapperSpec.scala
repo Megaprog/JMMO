@@ -64,7 +64,7 @@ class ListenerWrapperSpec extends WordSpec with ShouldMatchers {
       wrapper3 should not equal(wrapper1)
     }
 
-    "have wrapped method to extract wrapped value from wrapper or original listener" in {
+    "have wrapped method to extract wrapped value from wrapper or original listenerWrapper" in {
       val listener = ObservableListener((_, _) => {})
       ListenerWrapper.wrapped(listener) should be theSameInstanceAs(listener)
 
@@ -72,7 +72,7 @@ class ListenerWrapperSpec extends WordSpec with ShouldMatchers {
       ListenerWrapper.wrapped(wrapper) should be theSameInstanceAs(listener)
     }
 
-    "have chain method to extract chain value from wrapper or empty sequence from original listener" in {
+    "have chain method to extract chain value from wrapper or empty sequence from original listenerWrapper" in {
       val listener = ObservableListener((_, _) => {})
       ListenerWrapper.chain(listener) should be ('empty)
 
