@@ -2,9 +2,8 @@
  * Copyright (C) 2013 Tomas Shestakov. <https://github.com/Megaprog/JMMO>
  */
 
-package jmmo.observable.impl
+package jmmo.observable
 
-import jmmo.observable.{ObservableEvent, ObservableListener, ObservableBase}
 import org.scalatest.WordSpec
 import org.scalatest.matchers.ShouldMatchers
 import org.scalatest.mock.MockitoSugar

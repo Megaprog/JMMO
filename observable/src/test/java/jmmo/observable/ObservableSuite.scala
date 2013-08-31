@@ -5,7 +5,7 @@
 package jmmo.observable
 
 import org.scalatest.WordSpec
-import jmmo.observable.impl.{ListenerWrapperSpec, ObservableFirerSpec}
+import jmmo.observable.impl.{ListenerWrapperSpec}
 
 /**
  * User: Tomas

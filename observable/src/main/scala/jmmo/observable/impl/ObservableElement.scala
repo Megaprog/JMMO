@@ -1,6 +1,6 @@
 package jmmo.observable.impl
 
-import jmmo.observable.{ObservableEvent, ObservableListener, Observable}
+import jmmo.observable.{ObservableFirer, ObservableEvent, ObservableListener, Observable}
 
 /**
  * User: Tomas
@@ -10,28 +10,30 @@ import jmmo.observable.{ObservableEvent, ObservableListener, Observable}
 trait ObservableElement extends ObservableFirer {
 
   def addObservableListener(listener: ObservableListener) {
-    if (selfListenerExists(listener)) {
+    if (selfListenersExists(listener)) {
       throw new IllegalArgumentException(s"Observable listener $listener already exists in $this")
     }
 
     if (listener.level >= 0 && listener.filter(this, Seq.empty)) {
-      addSelfListener(listener)
+      selfListenersAdd(listener)
     }
   }
 
   def removeObservableListener(listener: ObservableListener) {
-    removeSelfListener(listener)
+    if (listener.level >= 0) {
+      selfListenersRemove(listener)
+    }
   }
 
-  protected[impl] def fireObservableEvent(event: ObservableEvent) {
+  protected[observable] def fireObservableEvent(event: ObservableEvent) {
     selfListeners foreach (_.handler(event, Seq.empty))
   }
 
-  protected def selfListenerExists(listener: ObservableListener): Boolean
+  protected def selfListenersExists(listener: ObservableListener): Boolean
 
   protected def selfListeners: TraversableOnce[ObservableListener]
 
-  protected def addSelfListener(listener: ObservableListener)
+  protected def selfListenersAdd(listener: ObservableListener)
 
-  protected def removeSelfListener(listener: ObservableListener)
+  protected def selfListenersRemove(listener: ObservableListener)
 }

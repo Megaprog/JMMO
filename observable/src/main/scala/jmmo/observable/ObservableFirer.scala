@@ -2,9 +2,7 @@
  * Copyright (C) 2013 Tomas Shestakov. <https://github.com/Megaprog/JMMO>
  */
 
-package jmmo.observable.impl
-
-import jmmo.observable.{ObservableEvent, Observable}
+package jmmo.observable
 
 /**
  * User: Tomas
@@ -13,5 +11,5 @@ import jmmo.observable.{ObservableEvent, Observable}
  */
 trait ObservableFirer extends Observable {
 
-  protected[impl] def fireObservableEvent(event: ObservableEvent)
+  protected[observable] def fireObservableEvent(event: ObservableEvent)
 }
