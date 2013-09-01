@@ -14,17 +14,20 @@ import java.util.EventObject
  * The parent of all observable events.
  * All observable events should be inheriting from this class.
  */
-class ObservableEvent(source: AnyRef) extends EventObject(source) {
+abstract class ObservableEvent {
+
+  /**
+   * @return the source of the event
+   */
+  def source: AnyRef
+
+  override def toString = s"ObservableEvent(source=$source)"
 }
 
 object ObservableEvent {
 
   /**
-   * Creates instance of the [[jmmo.observable.ObservableEvent]] with the specified event source.
-   * @param source source of the event
-   * @return new instance of the [[jmmo.observable.ObservableEvent]] class
+   * Extracts the source of the event
    */
-  def apply(source: AnyRef) = new ObservableEvent(source)
-
-  def unapply(event: ObservableEvent) = if (event eq null) None else Some(event.getSource)
+  def unapply(event: ObservableEvent) = if (event eq null) None else Some(event.source)
 }

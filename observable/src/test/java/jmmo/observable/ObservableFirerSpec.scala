@@ -28,7 +28,7 @@ class ObservableFirerSpec(creator: => ObservableFirer) extends WordSpec with Sho
     val listener2 = ObservableListener(handler2)
     val handler3 = mock[ObservableListener.Handler]
 
-    val event = new ObservableEvent(new {})
+    val event = new ObservableEvent { def source = null }
 
     "have addObservableListener method to add new listenerWrapper and not allow to add duplicate one" in {
       observable.addObservableListener(listener1)
