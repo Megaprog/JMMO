@@ -1,6 +1,6 @@
 package jmmo.observable
 
-import jmmo.observable.impl.{ChildListenersImmutableSet, ObservableContainerImm}
+import jmmo.observable.impl.{ChildListenersImmSet, ObservableContainerImm}
 
 /**
  * User: Tomas

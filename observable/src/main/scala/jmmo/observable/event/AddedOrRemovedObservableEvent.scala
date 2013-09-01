@@ -1,7 +1,6 @@
 package jmmo.observable.event
 
-import jmmo.observable.ObservableEvent
-import java.util.Observable
+import jmmo.observable.{Observable, ObservableEvent}
 
 /**
  * User: Tomas

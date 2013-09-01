@@ -1,13 +1,56 @@
 package jmmo.observable.impl
 
 import jmmo.observable.{ObservableListener, ObservableContainer, Observable}
+import jmmo.observable.event.{RemovedObservableEvent, AddedObservableEvent}
 
 /**
  * User: Tomas
  * Date: 31.08.13
  * Time: 23:21
  */
-trait ObservableContainerMut[A <: Observable] extends ObservableContainer[A] with ObservableContainerImm[A] {
+trait ObservableContainerMut[A <: Observable] extends ObservableContainer[A] with ObservableContainerImm[A] with ChildListenersSupport {
+
+  protected def addChildObservable(observable: A): Boolean = {
+    if (childObservablesAdd(observable)) {
+      onAddChildObservable(observable)
+      true
+    }
+    else {
+      false
+    }
+  }
+
+  protected def removeChildObservable(observable: A): Boolean = {
+    if (childObservablesRemove(observable)) {
+      onRemoveChildObservable(observable)
+      true
+    }
+    else {
+      false
+    }
+  }
+
+  protected def onAddChildObservable(observable: A) {
+    doFireAddedObservableEvent(this, observable)
+
+    //subscribe child
+    childListeners foreach observable.addObservableListener
+  }
+
+  protected def onRemoveChildObservable(observable: A) {
+    //unsubscribe child
+    childListeners foreach observable.removeObservableListener
+
+    doFireRemovedObservableEvent(this, observable)
+  }
+
+  protected def doFireAddedObservableEvent(source: Observable, participant: Observable) {
+    fireObservableEvent(AddedObservableEvent(source, participant))
+  }
+
+  protected def doFireRemovedObservableEvent(source: Observable, participant: Observable) {
+    fireObservableEvent(RemovedObservableEvent(source, participant))
+  }
 
   override protected def addChildListenerWrapper(listenerWrapper: ObservableListener) {
     if (childListenersExists(listenerWrapper)) {
@@ -25,11 +68,7 @@ trait ObservableContainerMut[A <: Observable] extends ObservableContainer[A] wit
     super.removeChildListenerWrapper(listenerWrapper)
   }
 
-  protected def childListenersExists(listener: ObservableListener): Boolean
+  protected def childObservablesAdd(observable: A): Boolean
 
-  protected def childListenersAdd(listener: ObservableListener)
-
-  protected def childListenersRemove(listener: ObservableListener)
-
-  protected def childListeners: TraversableOnce[ObservableListener]
+  protected def childObservablesRemove(observable: A): Boolean
 }

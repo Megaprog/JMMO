@@ -6,10 +6,10 @@ package jmmo.observable
  * Time: 20:57
  *
  *<p>Fires events:</p>
- *[[AddedObservableEvent]]<br>
- *[[RemovedObservableEvent]]<br>
+ *[[jmmo.observable.event.AddedObservableEvent]]<br>
+ *[[jmmo.observable.event.RemovedObservableEvent]]<br>
  */
-trait ObservableContainer[A <: Observable] extends Observable {
+trait ObservableContainer[A <: Observable] extends ObservableFirer {
 
   protected def addChildObservable(observable: A): Boolean
 

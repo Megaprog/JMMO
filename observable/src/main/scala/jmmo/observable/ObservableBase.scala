@@ -4,11 +4,11 @@
 
 package jmmo.observable
 
-import jmmo.observable.impl.{SelfListenersImmutableSet, ObservableElement}
+import jmmo.observable.impl.{SelfListenersImmSet, ObservableElement}
 
 /**
  * User: Tomas
  * Date: 11.08.13
  * Time: 12:48
  */
-trait ObservableBase extends ObservableElement with SelfListenersImmutableSet
+trait ObservableBase extends ObservableElement with SelfListenersImmSet

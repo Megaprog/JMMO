@@ -11,7 +11,7 @@ import jmmo.observable.ObservableListener
  * Date: 11.08.13
  * Time: 9:35
  */
-trait ChildListenersImmutableSet {
+trait ChildListenersImmSet extends ChildListenersSupport {
 
   protected var childListeners = createChildListeners
 

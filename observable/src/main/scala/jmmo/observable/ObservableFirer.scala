@@ -8,6 +8,8 @@ package jmmo.observable
  * User: Tomas
  * Date: 11.08.13
  * Time: 13:12
+ *
+ * Observable which can fire events
  */
 trait ObservableFirer extends Observable {
 
