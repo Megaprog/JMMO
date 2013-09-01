@@ -7,7 +7,7 @@ import jmmo.observable.Observable
  * Date: 01.09.13
  * Time: 21:19
  */
-class ChildObservablesImmSet[A <: Observable] {
+trait ChildObservablesImmSet[A <: Observable] extends ChildObservablesSupport[A] {
 
   protected var childObservables = createChildObservables
 

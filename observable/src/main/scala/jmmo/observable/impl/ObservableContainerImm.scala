@@ -7,7 +7,7 @@ import jmmo.observable.{Observable, ObservableListener}
  * Date: 31.08.13
  * Time: 19:18
  */
-trait ObservableContainerImm[+A <: Observable] extends Observable {
+trait ObservableContainerImm[+A <: Observable] extends Observable with ChildObservablesTraversable[A] {
 
   abstract override def addObservableListener(listener: ObservableListener) {
     super.addObservableListener(listener)
@@ -40,6 +40,4 @@ trait ObservableContainerImm[+A <: Observable] extends Observable {
   protected def removeChildListenerWrapper(listenerWrapper: ObservableListener) {
     childObservables foreach (_.removeObservableListener(listenerWrapper))
   }
-
-  protected def childObservables: TraversableOnce[A]
 }
