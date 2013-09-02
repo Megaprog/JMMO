@@ -9,10 +9,16 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>jmmo</groupId>
-    <artifactId>observable</artifactId>
+    <artifactId>property</artifactId>
     <version>1.0</version>
 
     <dependencies>
+
+        <dependency>
+            <groupId>jmmo</groupId>
+            <artifactId>observable</artifactId>
+            <version>1.0</version>
+        </dependency>
 
         <dependency>
             <groupId>jmmo</groupId>
@@ -83,9 +89,9 @@
                 <version>1.0-M2</version>
                 <configuration>
                     <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
-                    <filereports>WDF ObservableSpec.txt</filereports>
+                    <filereports>WDF PropertySpec.txt</filereports>
                     <stdout>W</stdout>
-                    <suites>jmmo.observable.ObservableSuite</suites>
+                    <suites></suites>
                 </configuration>
                 <executions>
                     <execution>
