@@ -85,7 +85,7 @@
                     <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
                     <filereports>WDF ObservableSpec.txt</filereports>
                     <stdout>W</stdout>
-                    <suites>jmmo.observable.ObservableSuite</suites>
+                    <suites>jmmo.jmmo.observable.ObservableSuite</suites>
                 </configuration>
                 <executions>
                     <execution>
