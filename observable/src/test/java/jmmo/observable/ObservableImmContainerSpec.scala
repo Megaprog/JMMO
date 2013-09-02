@@ -14,8 +14,8 @@ class ObservableImmContainerSpec(creator: (TraversableOnce[Observable]) => Obser
 
   def this() = this((children) => new ObservableImmContainerBase[Observable] { def childObservables = children })
 
-  val child1 = new ObservableBase {}
-  val child2 = new ObservableBase {}
+  val child1 = new ObservableBase with PublicFirer {}
+  val child2 = new ObservableBase with PublicFirer {}
   val container = creator(List(child1, child2))
 
   val event1 = new ObservableEvent { def source = null }
@@ -33,10 +33,10 @@ class ObservableImmContainerSpec(creator: (TraversableOnce[Observable]) => Obser
 
         info("all events fires in children has `container` in chain")
 
-        child1.fireObservableEvent(event1)
+        child1.publicFireObservableEvent(event1)
         verify(handler1).apply(event1, Seq(container))
 
-        child2.fireObservableEvent(event2)
+        child2.publicFireObservableEvent(event2)
         verify(handler1).apply(event2, Seq(container))
       }
 
@@ -53,10 +53,10 @@ class ObservableImmContainerSpec(creator: (TraversableOnce[Observable]) => Obser
           }
         }))
 
-        child1.fireObservableEvent(event1)
+        child1.publicFireObservableEvent(event1)
         verify(handler).apply(event1, Seq(container))
 
-        child2.fireObservableEvent(event2)
+        child2.publicFireObservableEvent(event2)
         verify(handler, never()).apply(event2, Seq(container))
       }
 
@@ -64,10 +64,10 @@ class ObservableImmContainerSpec(creator: (TraversableOnce[Observable]) => Obser
         val handler = mock[ObservableListener.Handler]
         container.addObservableListener(ObservableListener(handler, ObservableListener.ParentLevel))
 
-        child1.fireObservableEvent(event1)
+        child1.publicFireObservableEvent(event1)
         verify(handler, never()).apply(event1, Seq(container))
 
-        child2.fireObservableEvent(event2)
+        child2.publicFireObservableEvent(event2)
         verify(handler, never()).apply(event2, Seq(container))
       }
     }
@@ -78,10 +78,10 @@ class ObservableImmContainerSpec(creator: (TraversableOnce[Observable]) => Obser
         reset(handler1)
         container.removeObservableListener(listener1)
 
-        child1.fireObservableEvent(event1)
+        child1.publicFireObservableEvent(event1)
         verify(handler1, never()).apply(event1, Seq(container))
 
-        child2.fireObservableEvent(event2)
+        child2.publicFireObservableEvent(event2)
         verify(handler1, never()).apply(event2, Seq(container))
       }
     }

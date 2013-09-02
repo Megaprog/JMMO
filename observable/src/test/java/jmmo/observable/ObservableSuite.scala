@@ -5,7 +5,7 @@
 package jmmo.observable
 
 import org.scalatest.WordSpec
-import jmmo.observable.impl.{ListenerWrapperSpec}
+import jmmo.observable.impl.ListenerWrapperSpec
 
 /**
  * User: Tomas
@@ -18,7 +18,8 @@ class ObservableSuite extends WordSpec {
     new ObservableListenerSpec,
     new ObservableFirerSpec,
     new ListenerWrapperSpec,
-    new ObservableImmContainerSpec
+    new ObservableImmContainerSpec,
+    new ObservableContainerSpec()
   )
 
   "Observables" should {

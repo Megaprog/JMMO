@@ -13,5 +13,5 @@ package jmmo.observable
  */
 trait ObservableFirer extends Observable {
 
-  protected[observable] def fireObservableEvent(event: ObservableEvent)
+  protected def fireObservableEvent(event: ObservableEvent)
 }

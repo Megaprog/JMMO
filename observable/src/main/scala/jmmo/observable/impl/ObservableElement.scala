@@ -25,7 +25,7 @@ trait ObservableElement extends ObservableFirer with SelfListenersSupport {
     }
   }
 
-  protected[observable] def fireObservableEvent(event: ObservableEvent) {
+  protected def fireObservableEvent(event: ObservableEvent) {
     selfListeners foreach (_.handler(event, Seq.empty))
   }
 }
