@@ -30,13 +30,13 @@ class ObservableFirerSpec(creator: => ObservableFirer) extends WordSpec with Sho
 
     val event = new ObservableEvent { def source = null }
 
-    "have addObservableListener method to add new listenerWrapper and not allow to add duplicate one" in {
+    "provide an addObservableListener method to add new listener and not allow to add duplicate one" in {
       observable.addObservableListener(listener1)
 
       evaluating {observable.addObservableListener(listener1)} should produce[IllegalArgumentException]
     }
 
-    "have fireObservableEvent method to fire event" in {
+    "provide a fireObservableEvent method to fire event" in {
       observable.fireObservableEvent(event)
       verify(handler1).apply(event, Seq.empty)
       verify(handler2, never()).apply(event, Seq.empty)
@@ -53,14 +53,14 @@ class ObservableFirerSpec(creator: => ObservableFirer) extends WordSpec with Sho
       verifyZeroInteractions(handler3)
     }
 
-    "have removeObservableListener method to remove listenerWrapper" in {
+    "provide a removeObservableListener method to remove listener" in {
       reset(handler1, handler2)
       observable.removeObservableListener(listener1)
       observable.fireObservableEvent(event)
       verify(handler1, never()).apply(event, Seq.empty)
       verify(handler2).apply(event, Seq.empty)
 
-      info("if removed listenerWrapper doesn't contains in observable nothing happens")
+      info("if removed listener doesn't contains in observable nothing happens")
       observable.removeObservableListener(listener1)
 
       reset(handler1, handler2)

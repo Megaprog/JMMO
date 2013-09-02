@@ -18,7 +18,7 @@ class ListenerWrapperSpec extends WordSpec with ShouldMatchers {
       def removeObservableListener(listener: ObservableListener) {}
     }
 
-    "have apply method to create ListenerWrapper instance" in {
+    "provide an apply method to create ListenerWrapper instance" in {
       val observable1 = new EmptyObservable
       val observable2 = new EmptyObservable
 
@@ -30,7 +30,7 @@ class ListenerWrapperSpec extends WordSpec with ShouldMatchers {
       wrapper.chain should be (Seq(observable1, observable2))
     }
 
-    "have unapply method for pattern matching" in {
+    "provide an unapply method for pattern matching" in {
       val observable1 = new EmptyObservable
       val observable2 = new EmptyObservable
 
@@ -48,7 +48,7 @@ class ListenerWrapperSpec extends WordSpec with ShouldMatchers {
       }) should be (true)
     }
 
-    "have canEqual and equals methods to be equal ListenerWrapper with same parameters" in {
+    "provide a canEqual and equals methods to be equal ListenerWrapper with same parameters" in {
       val observable1 = new EmptyObservable
       val observable2 = new EmptyObservable
       val listener = ObservableListener((_: ObservableEvent, _: Seq[Observable]) => {}, 2)
@@ -64,7 +64,7 @@ class ListenerWrapperSpec extends WordSpec with ShouldMatchers {
       wrapper3 should not equal(wrapper1)
     }
 
-    "have wrapped method to extract wrapped value from wrapper or original listenerWrapper" in {
+    "provide a wrapped method to extract wrapped value from wrapper or original listenerWrapper" in {
       val listener = ObservableListener((_, _) => {})
       ListenerWrapper.wrapped(listener) should be theSameInstanceAs(listener)
 
@@ -72,7 +72,7 @@ class ListenerWrapperSpec extends WordSpec with ShouldMatchers {
       ListenerWrapper.wrapped(wrapper) should be theSameInstanceAs(listener)
     }
 
-    "have chain method to extract chain value from wrapper or empty sequence from original listenerWrapper" in {
+    "provide a chain method to extract chain value from wrapper or empty sequence from original listenerWrapper" in {
       val listener = ObservableListener((_, _) => {})
       ListenerWrapper.chain(listener) should be ('empty)
 

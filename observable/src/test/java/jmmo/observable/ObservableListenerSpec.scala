@@ -12,7 +12,7 @@ class ObservableListenerSpec extends WordSpec with ShouldMatchers {
 
   "An ObservableListener" should {
 
-    "have apply method to create ObservableListener instance" in {
+    "provide apply method to create ObservableListener instance" in {
       val handler = (_: ObservableEvent, _: Seq[Observable]) => {}
       val filter = (_: Observable, _: Seq[Observable]) => true
       val level = 1
@@ -26,7 +26,7 @@ class ObservableListenerSpec extends WordSpec with ShouldMatchers {
       listener.level should equal(level)
     }
 
-    "have unapply method for pattern matching" in {
+    "provide unapply method for pattern matching" in {
       val handler = (_: ObservableEvent, _: Seq[Observable]) => {}
       val filter = (_: Observable, _: Seq[Observable]) => true
       val level = 1
@@ -39,7 +39,7 @@ class ObservableListenerSpec extends WordSpec with ShouldMatchers {
       }) should be (true)
     }
 
-    "have implicit conversion from (ObservableEvent, Seq[Observable]) => Unit to ObservableListener" in {
+    "provide implicit conversion from (ObservableEvent, Seq[Observable]) => Unit to ObservableListener" in {
       val handler = (_: ObservableEvent, _: Seq[Observable]) => {}
 
       import ObservableListener.ImplicitObservableListener

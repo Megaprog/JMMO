@@ -17,7 +17,8 @@ class ObservableSuite extends WordSpec {
   override val nestedSuites = List(
     new ObservableListenerSpec,
     new ObservableFirerSpec,
-    new ListenerWrapperSpec
+    new ListenerWrapperSpec,
+    new ObservableImmContainerSpec
   )
 
   "Observables" should {

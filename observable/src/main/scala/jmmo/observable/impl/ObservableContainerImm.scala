@@ -6,6 +6,8 @@ import jmmo.observable.{Observable, ObservableListener}
  * User: Tomas
  * Date: 31.08.13
  * Time: 19:18
+ *
+ * Immutable container is not a firer. It is not not required to has [[jmmo.observable.ObservableFirer.fireObservableEvent()]] method
  */
 trait ObservableContainerImm[+A <: Observable] extends Observable with ChildObservablesTraversable[A] {
 
