@@ -17,7 +17,7 @@ class ObservableListenerSpec extends WordSpec with ShouldMatchers {
       val filter = (_: Observable, _: Seq[Observable]) => true
       val level = 1
 
-      class MyEvent(val source: AnyRef) extends ObservableEvent
+      class MyEvent(val source: Observable) extends ObservableEvent
 
       val listener = ObservableListener(handler, filter, level)
 

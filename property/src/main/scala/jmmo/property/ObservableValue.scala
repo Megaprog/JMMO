@@ -4,7 +4,7 @@
 
 package jmmo.property
 
-import java.util.Observable
+import jmmo.observable.Observable
 
 /**
  * User: Tomas

@@ -17,7 +17,7 @@ trait ObservableEvent {
   /**
    * @return the source of the event
    */
-  def source: AnyRef
+  def source: Observable
 
   override def toString = s"ObservableEvent(source=$source)"
 }
