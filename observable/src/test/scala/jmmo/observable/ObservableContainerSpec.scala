@@ -4,7 +4,6 @@ import org.scalatest.WordSpec
 import org.scalatest.matchers.ShouldMatchers
 import org.scalatest.mock.MockitoSugar
 import org.mockito.Mockito._
-import jmmo.observable.event.{RemovedObservableEvent, AddedObservableEvent}
 
 /**
  * User: Tomas

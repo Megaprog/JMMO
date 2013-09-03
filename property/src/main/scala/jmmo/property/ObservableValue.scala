@@ -14,10 +14,10 @@ import java.util.Observable
  * Observable which contains some value.
  * @tparam A type of value
  */
-trait ObservableValue[A] extends Observable {
+trait ObservableValue[+A] extends Observable {
 
   /**
-   * @return an observable value.
+   * @return an `Observable` value.
    */
   def apply(): A
 

@@ -1,4 +1,4 @@
-package jmmo.observable.event
+package jmmo.observable
 
 import jmmo.observable.{Observable, ObservableEvent}
 

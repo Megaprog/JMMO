@@ -1,7 +1,7 @@
 package jmmo.observable.impl
 
-import jmmo.observable.{ObservableListener, ObservableContainer, Observable}
-import jmmo.observable.event.{RemovedObservableEvent, AddedObservableEvent}
+import jmmo.observable._
+import jmmo.observable.AddedObservableEvent
 
 /**
  * User: Tomas
