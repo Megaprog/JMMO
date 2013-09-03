@@ -1,7 +1,5 @@
 package jmmo.observable
 
-import jmmo.observable.{Observable, ObservableEvent}
-
 /**
  * User: Tomas
  * Date: 01.09.13

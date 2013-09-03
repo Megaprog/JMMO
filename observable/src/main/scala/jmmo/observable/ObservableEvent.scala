@@ -4,8 +4,6 @@
 
 package jmmo.observable
 
-import java.util.EventObject
-
 /**
  * User: Tomas
  * Date: 04.08.13
@@ -14,7 +12,7 @@ import java.util.EventObject
  * The parent of all observable events.
  * All observable events should be inheriting from this class.
  */
-abstract class ObservableEvent {
+trait ObservableEvent {
 
   /**
    * @return the source of the event
