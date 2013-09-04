@@ -13,3 +13,8 @@ class PropertyImpl[A](val name: String = "", protected var value: A = jmmo.util.
     this.value = value
   }
 }
+
+object PropertyImpl {
+
+  def apply[A](name: String = "", value: A = jmmo.util.sysDefault[A]) = new PropertyImpl[A](name, value)
+}

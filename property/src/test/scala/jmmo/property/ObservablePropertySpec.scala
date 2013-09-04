@@ -9,6 +9,7 @@ import org.scalatest.mock.MockitoSugar
  * Date: 04.09.13
  * Time: 15:12
  */
-class ObservablePropertySpec extends WordSpec with ShouldMatchers with MockitoSugar {
+class ObservablePropertySpec(creator: (String) => ObservableProperty[Int])  extends WordSpec with ShouldMatchers with MockitoSugar {
 
+  def this() = this((name) => PropertyImpl[Int](name))
 }

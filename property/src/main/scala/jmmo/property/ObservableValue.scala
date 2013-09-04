@@ -30,3 +30,11 @@ trait ObservableValue[+A] extends Observable with Equals {
    */
   def name: String
 }
+
+object ObservableValue {
+
+  /**
+   * Extracts name and value of the `ObservableValue`
+   */
+  def unapply[A](observableValue: ObservableValue[A]) = if (observableValue eq null) None else Some(observableValue.name, observableValue())
+}

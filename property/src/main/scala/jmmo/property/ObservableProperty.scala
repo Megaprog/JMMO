@@ -13,3 +13,11 @@ trait ObservableProperty[A] extends ObservableValue[A] {
    */
   def update(value: A)
 }
+
+object ObservableProperty {
+
+  /**
+   * Extracts name and value of the property
+   */
+  def unapply[A](property: ObservableProperty[A]) = if (property eq null) None else Some(property.name, property())
+}
