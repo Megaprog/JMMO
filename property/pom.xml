@@ -22,6 +22,14 @@
 
         <dependency>
             <groupId>jmmo</groupId>
+            <artifactId>observable</artifactId>
+            <version>1.0</version>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>jmmo</groupId>
             <artifactId>util</artifactId>
             <version>1.0</version>
         </dependency>
