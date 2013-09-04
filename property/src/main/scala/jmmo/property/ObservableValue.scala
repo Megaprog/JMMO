@@ -12,9 +12,13 @@ import jmmo.observable.Observable
  * Time: 15:53
  *
  * Observable which contains some value.
+ *
+ *<p>Fires events:</p>
+ *[[jmmo.property.ChangedValueEvent]]<br>
+ *
  * @tparam A type of value
  */
-trait ObservableValue[+A] extends Observable {
+trait ObservableValue[+A] extends Observable with Equals {
 
   /**
    * @return an `Observable` value.
@@ -24,5 +28,5 @@ trait ObservableValue[+A] extends Observable {
   /**
    * @return the name of the value. It is desirable to be unique but can be any except null
    */
-  def name(): String
+  def name: String
 }

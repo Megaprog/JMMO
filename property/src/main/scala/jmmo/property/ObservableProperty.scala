@@ -4,9 +4,6 @@ package jmmo.property
  * User: Tomas
  * Date: 03.09.13
  * Time: 10:39
- *
- *<p>Fires events:</p>
- *[[jmmo.property.ChangedValueEvent]]<br>
  */
 trait ObservableProperty[A] extends ObservableValue[A] {
 
