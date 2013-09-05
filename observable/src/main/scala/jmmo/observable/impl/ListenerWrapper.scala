@@ -46,12 +46,12 @@ object ListenerWrapper {
   }
 
   def wrapped(listener : ObservableListener) = listener match {
-    case wrapper: ListenerWrapper => wrapper.wrapped
+    case ListenerWrapper(wrapped, _, _*) => wrapped
     case _ => listener
   }
 
   def chain(listener : ObservableListener) = listener match {
-    case wrapper: ListenerWrapper => wrapper.chain
+    case ListenerWrapper(_, _, chain @ _*) => chain
     case _ => Vector.empty
   }
 }
