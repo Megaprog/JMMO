@@ -24,6 +24,10 @@ class ListenerBuilder {
     this
   }
 
+  def addHandlerWC[T <: ObservableEvent](handler: (T) => Unit)(implicit tag: ClassTag[T]): this.type = {
+    addHandler[T]((event, chain) => handler(event))
+  }
+
   def addFilter[T <: Observable](filter: (T, ObservableListener.Chain) => Boolean)(implicit tag: ClassTag[T]): this.type = {
     val clazz = tag.runtimeClass.asInstanceOf[Class[T]]
     if (classFilterMap.contains(clazz)) {
@@ -34,7 +38,11 @@ class ListenerBuilder {
     this
   }
 
-  def level(level: ObservableListener.Level) {
+  def addFilterWC[T <: Observable](filter: (T) => Boolean)(implicit tag: ClassTag[T]): this.type = {
+    addFilter[T]((observable, chain) => filter(observable))
+  }
+
+  def setLevel(level: ObservableListener.Level) {
     this.level = level
   }
 
