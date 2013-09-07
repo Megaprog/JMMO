@@ -20,7 +20,8 @@ class ObservableSuite extends WordSpec {
     new ListenerWrapperSpec,
     new ObservableImmContainerSpec,
     new ObservableContainerSpec,
-    new ObservableTransparentContainerSpec
+    new ObservableTransparentContainerSpec,
+    new ListenerBuilderSpec
   )
 
   "Observables" should {
