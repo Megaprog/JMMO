@@ -43,6 +43,10 @@ class ListenerBuilder {
   }
 
   def setLevel(level: ObservableListener.Level) {
+    if (level < 0) {
+      throw new IllegalArgumentException("The level must be greater than zero but equals " + level)
+    }
+
     this.level = level
   }
 
@@ -51,31 +55,28 @@ class ListenerBuilder {
       throw new IllegalArgumentException("Must be at least one handler to build listener")
     }
 
-    val classesHandlers = classHandlerMap.toIterable
-    val classesFilters = classFilterMap.toIterable
-
     ObservableListener(
-      if (classesHandlers.size == 1)
-        new SingleHandler(classesHandlers.iterator.next())
+      if (classHandlerMap.size == 1)
+        new SingleHandler(classHandlerMap.keysIterator.next(), classHandlerMap.valuesIterator.next())
       else
-        new MultiHandler(classesHandlers),
+        new MultiHandler(classHandlerMap),
 
-      if (classesFilters.isEmpty)
+      if (classFilterMap.isEmpty)
         ObservableListener.PassAll
-      else if (classesFilters.size == 1)
-        new SingleFilter(classesFilters.iterator.next())
+      else if (classFilterMap.size == 1)
+        new SingleFilter(classFilterMap.keysIterator.next(), classFilterMap.valuesIterator.next())
       else
-        new MultiFilter(classesFilters),
+        new MultiFilter(classFilterMap),
 
       level
     )
   }
 
-  protected class SingleHandler(classHandler: (Class[_ <: ObservableEvent], ObservableListener.Handler)) extends ObservableListener.Handler {
+  protected class SingleHandler(clazz: Class[_ <: ObservableEvent], handler: ObservableListener.Handler) extends ObservableListener.Handler {
 
     def apply(event: ObservableEvent, chain: ObservableListener.Chain) {
-      if (classHandler._1.isInstance(event)) {
-        classHandler._2(event, chain)
+      if (clazz.isInstance(event)) {
+       handler(event, chain)
       }
     }
   }
@@ -93,11 +94,11 @@ class ListenerBuilder {
     }
   }
 
-  protected class SingleFilter(classFilter: (Class[_ <: Observable], ObservableListener.Filter)) extends ObservableListener.Filter {
+  protected class SingleFilter(clazz: Class[_ <: Observable], filter: ObservableListener.Filter) extends ObservableListener.Filter {
 
     def apply(observable: Observable, chain: ObservableListener.Chain): Boolean = {
-      if (classFilter._1.isInstance(observable)) {
-        classFilter._2(observable, chain)
+      if (clazz.isInstance(observable)) {
+        filter(observable, chain)
       }
       else {
         false
