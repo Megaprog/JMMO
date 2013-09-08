@@ -12,6 +12,7 @@
         <module>observable</module>
         <module>property</module>
         <module>grid</module>
+        <module>component</module>
     </modules>
 
 </project>
