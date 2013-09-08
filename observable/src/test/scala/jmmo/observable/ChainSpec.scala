@@ -3,7 +3,6 @@ package jmmo.observable
 import org.scalatest.WordSpec
 import org.scalatest.matchers.ShouldMatchers
 import org.scalatest.mock.MockitoSugar
-import org.mockito.Mockito._
 
 /**
   * User: Tomas
