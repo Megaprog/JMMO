@@ -9,7 +9,7 @@ import scala.reflect.ClassTag
  */
 trait Component[A] {
 
-  def getType: Class[A]
+  def componentType: Class[A]
 
   def componentInterface: A
 

@@ -12,9 +12,9 @@ trait ComponentContainer extends Observable {
 
   def components: Seq[Class[_]]
 
-  def component[C](implicit tag: ClassTag[C]): Option[C]
+  def component[C](clazz: Class[C]): Option[C]
 
-  def isComponentAvailable[C](implicit tag: ClassTag[C]): Boolean
+  def component[C](implicit tag: ClassTag[C]): Option[C]
 
   def forInterface[I](handler: (I) => Unit)(implicit tag: ClassTag[I])
 
