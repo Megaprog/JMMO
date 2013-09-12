@@ -6,8 +6,8 @@ package jmmo.observable
  * Time: 20:57
  *
  *<p>Fires events:</p>
- *[[AddedObservableEvent]]<br>
- *[[RemovedObservableEvent]]<br>
+ *[[jmmo.observable.AddedObservableEvent]]<br>
+ *[[jmmo.observable.RemovedObservableEvent]]<br>
  */
 trait ObservableContainer[A <: Observable] extends ObservableFirer {
 
@@ -15,5 +15,5 @@ trait ObservableContainer[A <: Observable] extends ObservableFirer {
 
   protected def removeChildObservable(observable: A): Boolean
 
-  protected def childObservables: TraversableOnce[A]
+  protected def childObservables: { def foreach[U](f: A => U): Unit }
 }

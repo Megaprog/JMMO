@@ -10,14 +10,22 @@ import scala.reflect.ClassTag
 trait ComponentBase[A] extends Component[A] {
   protected var containerOption: Option[ComponentContainer] = None
 
-  def componentInterface: A = {
+  def componentIface: A = {
     this.asInstanceOf[A]
   }
 
-  def forInterface[I](handler: (I) => Unit)(implicit tag: ClassTag[I]) {
-    if (tag.runtimeClass.isInstance(componentInterface)) {
-      handler(componentInterface.asInstanceOf[I])
+  def handleIface[I](handler: (I) => Unit)(implicit tag: ClassTag[I]) {
+    if (tag.runtimeClass.isInstance(componentIface)) {
+      handler(componentIface.asInstanceOf[I])
     }
+  }
+
+  protected def isAvailable: Boolean = {
+    containerOption.isDefined
+  }
+
+  protected def container: ComponentContainer = {
+    containerOption.get
   }
 
   def containerAvailable(container: ComponentContainer) {
@@ -30,7 +38,7 @@ trait ComponentBase[A] extends Component[A] {
   }
 
   protected def onBecomeAvailable() {
-    containerOption foreach { _.becomeAvailable(this) }
+    container.becomeAvailable(this)
   }
 
   def containerRevoked(container: ComponentContainer) {
@@ -39,14 +47,12 @@ trait ComponentBase[A] extends Component[A] {
   }
 
   protected def onContainerRevoked() {
-    containerOption foreach { (container) =>
-      if (container.component(componentType).isDefined) {
-        onBecomeRevoked()
-      }
+    if (container.iface(componentType).isDefined) {
+      onBecomeRevoked()
     }
   }
 
   protected def onBecomeRevoked() {
-    containerOption foreach { _.becomeRevoked(this) }
+    container.becomeRevoked(this)
   }
 }

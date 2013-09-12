@@ -9,7 +9,7 @@ import jmmo.observable.ObservableListener
  */
 trait ChildListenersSupport {
 
-  protected def childListeners: TraversableOnce[ObservableListener]
+  protected def childListeners: { def foreach[U](f: ObservableListener => U): Unit }
 
   protected def childListenersExists(listener: ObservableListener): Boolean
 

@@ -57,7 +57,9 @@ class ObservableContainerSpec(creator: => PublicContainer[Observable]) extends W
     "provide childObservables method" which {
 
       "returns all child observables in container" in {
-        container.publicChildObservables.toSeq should equal (Seq(child))
+        var children = Vector[Observable]()
+        container.publicChildObservables foreach (child => children = children :+ child)
+        children should equal (Seq(child))
       }
     }
 
@@ -65,7 +67,10 @@ class ObservableContainerSpec(creator: => PublicContainer[Observable]) extends W
 
       "remove a child observable to container" in {
         container.publicRemoveChildObservable(child)
-        container.publicChildObservables.toSeq should be ('empty)
+
+        var children = Vector[Observable]()
+        container.publicChildObservables foreach (child => children = children :+ child)
+        children should be ('empty)
       }
 
       "fires RemovedObservableEvent" in {
@@ -86,5 +91,5 @@ class ObservableContainerSpec(creator: => PublicContainer[Observable]) extends W
 trait PublicContainer[A <: Observable] extends ObservableContainer[A] with PublicFirer {
   def publicAddChildObservable(observable: A): Boolean = addChildObservable(observable)
   def publicRemoveChildObservable(observable: A): Boolean = removeChildObservable(observable)
-  def publicChildObservables: TraversableOnce[A] = childObservables
+  def publicChildObservables = childObservables
 }

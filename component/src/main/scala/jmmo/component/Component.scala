@@ -11,9 +11,9 @@ trait Component[A] {
 
   def componentType: Class[A]
 
-  def componentInterface: A
+  def componentIface: A
 
-  def forInterface[I](handler: (I) => Unit)(implicit tag: ClassTag[I])
+  def handleIface[I](handler: (I) => Unit)(implicit tag: ClassTag[I])
 
   def containerAvailable(container: ComponentContainer)
 
