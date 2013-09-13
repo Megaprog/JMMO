@@ -14,9 +14,9 @@ trait ComponentContainer extends Observable {
 
   def isComponentAvailable(componentClass: Class[_]): Boolean
 
-  def forMain[C, U](handler: C => U)(implicit tagC: ClassTag[C])
+  def forPrimary[C, U](handler: C => U)(implicit tagC: ClassTag[C])
 
-  def forInterface[I, U](handler: I => U)(implicit tagI: ClassTag[I])
+  def forSecondary[I, U](handler: I => U)(implicit tagI: ClassTag[I])
 
   def addComponent(component: Component[_])
 

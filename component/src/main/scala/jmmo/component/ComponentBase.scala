@@ -10,11 +10,11 @@ import scala.reflect.ClassTag
 trait ComponentBase[A] extends Component[A] {
   protected var containerOption: Option[ComponentContainer] = None
 
-  def forMain[U](handler: A => U) {
+  def forPrimary[U](handler: A => U) {
     handler(this.asInstanceOf[A])
   }
 
-  def forInterface[I, U](handler: I => U)(implicit tagI: ClassTag[I]) {
+  def forSecondary[I, U](handler: I => U)(implicit tagI: ClassTag[I]) {
     if (tagI.runtimeClass.isInstance(this)) {
       handler(this.asInstanceOf[I])
     }
