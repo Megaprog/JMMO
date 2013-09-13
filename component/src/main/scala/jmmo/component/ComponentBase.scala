@@ -10,13 +10,13 @@ import scala.reflect.ClassTag
 trait ComponentBase[A] extends Component[A] {
   protected var containerOption: Option[ComponentContainer] = None
 
-  def componentIface: A = {
-    this.asInstanceOf[A]
+  def forMain[U](handler: A => U) {
+    handler(this.asInstanceOf[A])
   }
 
-  def handleIface[I](handler: (I) => Unit)(implicit tag: ClassTag[I]) {
-    if (tag.runtimeClass.isInstance(componentIface)) {
-      handler(componentIface.asInstanceOf[I])
+  def forInterface[I, U](handler: I => U)(implicit tagI: ClassTag[I]) {
+    if (tagI.runtimeClass.isInstance(this)) {
+      handler(this.asInstanceOf[I])
     }
   }
 
@@ -47,7 +47,7 @@ trait ComponentBase[A] extends Component[A] {
   }
 
   protected def onContainerRevoked() {
-    if (container.iface(componentType).isDefined) {
+    if (container.isComponentAvailable(componentType)) {
       onBecomeRevoked()
     }
   }

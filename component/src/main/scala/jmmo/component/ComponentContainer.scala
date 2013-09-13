@@ -10,13 +10,13 @@ import scala.reflect.ClassTag
  */
 trait ComponentContainer extends Observable {
 
-  def components: Seq[Class[_]]
+  def components: Set[Class[_]]
 
-  def iface[C](clazz: Class[C]): Option[C]
+  def isComponentAvailable(componentClass: Class[_]): Boolean
 
-  def iface[C](implicit tag: ClassTag[C]): Option[C]
+  def forMain[C, U](handler: C => U)(implicit tagC: ClassTag[C])
 
-  def handleIface[I](handler: (I) => Unit)(implicit tag: ClassTag[I])
+  def forInterface[I, U](handler: I => U)(implicit tagI: ClassTag[I])
 
   def addComponent(component: Component[_])
 
