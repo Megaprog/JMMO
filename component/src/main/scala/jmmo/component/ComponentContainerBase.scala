@@ -1,7 +1,7 @@
 package jmmo.component
 
-import jmmo.observable._
-import jmmo.observable.impl.{ChildListenersImmSet, ObservableContainerMut}
+import jmmo.observable.ObservableListener
+import jmmo.observable.impl.{ObservableElement, ObservableContainerMut}
 import scala.reflect.ClassTag
 
 /**
@@ -9,10 +9,8 @@ import scala.reflect.ClassTag
  * Date: 12.09.13
  * Time: 12:11
  */
-trait ComponentContainerBase extends ComponentContainer with ObservableBase with ObservableContainerMut[Component[_]] with ChildListenersImmSet {
-
-  protected var allComponents = Set.empty[Class[_]]
-  protected var availableComponents = Map.empty[Class[_], Component[_]]
+trait ComponentContainerBase extends ComponentContainer with ObservableElement with ObservableContainerMut[Component[_]]
+                              with AllComponentsSupport with AvailableComponentsSupport {
 
   def components: collection.Set[Class[_]] = allComponents
 
@@ -71,42 +69,4 @@ trait ComponentContainerBase extends ComponentContainer with ObservableBase with
     }
 
   }, level = ObservableListener.ParentLevel)
-
-  protected def allComponentsAdd(component: Component[_]) {
-    allComponents += component.componentType
-  }
-
-  protected def allComponentsRemove(component: Component[_]) {
-    allComponents -= component.componentType
-  }
-
-  protected def allComponentsContains(component: Component[_]): Boolean = {
-    allComponents.contains(component.componentType)
-  }
-
-  protected def availableComponent[C](componentClass: Class[C]): Option[Component[C]] = {
-    availableComponents.get(componentClass).asInstanceOf[Option[Component[C]]]
-  }
-
-  protected def childObservablesAdd(component: Component[_]): Boolean = {
-    if (!availableComponents.contains(component.componentType)) {
-      availableComponents += (component.componentType -> component)
-      true
-    }
-    else {
-      false
-    }
-  }
-
-  protected def childObservablesRemove(component: Component[_]): Boolean = {
-    if (availableComponents.contains(component.componentType)) {
-      availableComponents -= component.componentType
-      true
-    }
-    else {
-      false
-    }
-  }
-
-  protected def childObservables = availableComponents.values
 }
