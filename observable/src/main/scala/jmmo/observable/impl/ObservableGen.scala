@@ -7,7 +7,7 @@ import jmmo.observable.{ObservableFirer, ObservableEvent, ObservableListener, Ob
  * Date: 09.08.13
  * Time: 9:32
  */
-trait ObservableElement extends ObservableFirer with SelfListenersSupport {
+trait ObservableGen extends ObservableFirer with SelfListenersSupport {
 
   def addObservableListener(listener: ObservableListener) {
     if (selfListenersContains(listener)) {
