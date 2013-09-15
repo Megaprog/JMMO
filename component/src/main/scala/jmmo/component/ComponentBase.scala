@@ -1,13 +1,14 @@
 package jmmo.component
 
 import scala.reflect.ClassTag
+import jmmo.observable.ObservableFirer
 
 /**
  * User: Tomas
  * Date: 12.09.13
  * Time: 10:48
  */
-trait ComponentBase[A] extends Component[A] {
+trait ComponentBase[A] extends Component[A] with ObservableFirer {
   protected var containerOption: Option[ComponentContainer] = None
 
   def forPrimary[U](handler: A => U): U = {

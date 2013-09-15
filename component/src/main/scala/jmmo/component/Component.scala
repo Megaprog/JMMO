@@ -1,13 +1,14 @@
 package jmmo.component
 
 import scala.reflect.ClassTag
+import jmmo.observable.Observable
 
 /**
  * User: Tomas
  * Date: 08.09.13
  * Time: 11:59
  */
-trait Component[A] {
+trait Component[A] extends Observable {
 
   def componentType: Class[A]
 

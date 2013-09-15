@@ -9,7 +9,7 @@ package jmmo.observable
  * Can be fired not only [[jmmo.observable.ObservableContainer]] but any other [[jmmo.observable.Observable]]
  * which contains child observables.
  */
-abstract class ObservableAddedOrRemovedEvent extends ObservableEvent {
+sealed trait ObservableAddedOrRemovedEvent extends ObservableEvent {
 
   /**
    * @return added or removed to(from) source `Observable`
