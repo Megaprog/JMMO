@@ -16,10 +16,10 @@ trait ComponentContainerBase extends ComponentContainer with ObservableBase with
 
   def components: collection.Set[Class[_]] = allComponents
 
-  def isComponentAvailable(componentClass: Class[_]): Boolean = availableComponents.contains(componentClass)
+  def isComponentAvailable(componentClass: Class[_]): Boolean = availableComponent(componentClass).isDefined
 
   def forPrimary[C, U](handler: C => U)(implicit tagC: ClassTag[C]): Option[U] =
-    availableComponent map (_.forPrimary(handler))
+    availableComponent(tagC.runtimeClass.asInstanceOf[Class[C]]) map (_.forPrimary(handler))
 
   def forSecondary[I, U](handler: I => U)(implicit tagI: ClassTag[I]) {
     childObservables foreach (_.forSecondary(handler))
@@ -32,7 +32,7 @@ trait ComponentContainerBase extends ComponentContainer with ObservableBase with
 
     allComponentsAdd(component)
 
-
+    component.addObservableListener(componentListener)
 
     component.containerAvailable(this)
   }
@@ -44,7 +44,7 @@ trait ComponentContainerBase extends ComponentContainer with ObservableBase with
 
     allComponentsRemove(component)
 
-
+    component.removeObservableListener(componentListener)
 
     component.containerRevoked(this)
 
@@ -52,8 +52,24 @@ trait ComponentContainerBase extends ComponentContainer with ObservableBase with
   }
 
   protected val componentListener = ObservableListener( (event, _) => event match {
-    case ComponentAvailable(component) => println(component)
-    case ComponentRevoked(component) => println(component)
+    case ComponentAvailable(component) => {
+
+      if (isComponentAvailable(component.componentType)) {
+        throw new IllegalArgumentException(s"$component was already available in $this")
+      }
+
+      addChildObservable(component)
+    }
+
+    case ComponentRevoked(component) => {
+
+      if (!isComponentAvailable(component.componentType)) {
+        throw new IllegalArgumentException(s"$component was not available in $this")
+      }
+
+      removeChildObservable(component)
+    }
+
   }, level = ObservableListener.ParentLevel)
 
   protected def allComponentsAdd(component: Component[_]) {
@@ -68,8 +84,8 @@ trait ComponentContainerBase extends ComponentContainer with ObservableBase with
     allComponents.contains(component.componentType)
   }
 
-  protected def availableComponent[C](implicit tagC: ClassTag[C]): Option[Component[C]] = {
-    availableComponents.get(tagC.runtimeClass).asInstanceOf[Option[Component[C]]]
+  protected def availableComponent[C](componentClass: Class[C]): Option[Component[C]] = {
+    availableComponents.get(componentClass).asInstanceOf[Option[Component[C]]]
   }
 
   protected def childObservablesAdd(component: Component[_]): Boolean = {
