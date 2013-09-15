@@ -11,7 +11,7 @@ trait ChildListenersSupport {
 
   protected def childListeners: { def foreach[U](f: ObservableListener => U): Unit }
 
-  protected def childListenersExists(listener: ObservableListener): Boolean
+  protected def childListenersContains(listener: ObservableListener): Boolean
 
   protected def childListenersAdd(listener: ObservableListener)
 

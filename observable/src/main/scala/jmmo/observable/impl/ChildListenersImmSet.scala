@@ -15,7 +15,7 @@ trait ChildListenersImmSet extends ChildListenersSupport {
 
   protected var childListeners = createChildListeners
 
-  protected def childListenersExists(listener: ObservableListener) = childListeners.contains(listener)
+  protected def childListenersContains(listener: ObservableListener) = childListeners.contains(listener)
 
   protected def childListenersAdd(listener: ObservableListener) = childListeners += listener
 

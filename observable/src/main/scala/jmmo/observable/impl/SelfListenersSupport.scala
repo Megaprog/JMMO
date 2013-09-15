@@ -11,7 +11,7 @@ trait SelfListenersSupport {
 
   protected def selfListeners: { def foreach[U](f: ObservableListener => U): Unit }
 
-  protected def selfListenersExists(listener: ObservableListener): Boolean
+  protected def selfListenersContains(listener: ObservableListener): Boolean
 
   protected def selfListenersAdd(listener: ObservableListener)
 

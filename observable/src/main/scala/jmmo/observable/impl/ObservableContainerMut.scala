@@ -54,7 +54,7 @@ trait ObservableContainerMut[A <: Observable] extends ObservableContainer[A]
   }
 
   override protected def addChildListenerWrapper(listenerWrapper: ObservableListener) {
-    if (childListenersExists(listenerWrapper)) {
+    if (childListenersContains(listenerWrapper)) {
       throw new IllegalArgumentException(s"Observable listenerWrapper $listenerWrapper already exists in $this")
     }
 

@@ -10,7 +10,7 @@ import scala.reflect.ClassTag
  * Date: 12.09.13
  * Time: 12:11
  */
-trait ComponentContainerBase extends ComponentContainer with ObservableBase with ObservableContainerMut[Observable] with ChildListenersImmSet {
+trait ComponentContainerBase extends ComponentContainer with ObservableBase with ObservableContainerMut[Component[_]] with ChildListenersImmSet {
 
   protected var allComponents = Set.empty[Class[_]]
   protected var availableComponents = Map.empty[Class[_], Component[_]]
@@ -20,20 +20,67 @@ trait ComponentContainerBase extends ComponentContainer with ObservableBase with
   def isComponentAvailable(componentClass: Class[_]): Boolean = availableComponents.contains(componentClass)
 
   def forPrimary[C, U](handler: C => U)(implicit tagC: ClassTag[C]): Option[U] =
-    availableComponents.get(tagC.runtimeClass) map (_.asInstanceOf[Component[C]].forPrimary(handler))
+    availableComponent map (_.forPrimary(handler))
 
   def forSecondary[I, U](handler: I => U)(implicit tagI: ClassTag[I]) {
-    availableComponents.values foreach (_.forSecondary(handler))
+    childObservables foreach (_.forSecondary(handler))
   }
 
-  def addComponent(component: Component[_]) {}
+  def addComponent(component: Component[_]) {
+    if (allComponentsContains(component)) {
+      throw new IllegalArgumentException(s"Can't add $component with duplicate component type ${component.componentType} to $this")
+    }
 
-  def removeComponent(component: Component[_]) {}
+    allComponentsAdd(component)
+
+    component.containerAvailable(this)
+  }
+
+  def removeComponent(component: Component[_]) {
+    if (!allComponentsContains(component)) {
+      throw new IllegalArgumentException(s"$component was not found in $this")
+    }
+
+    allComponentsRemove(component)
 
 
-  protected def childObservables: {def foreach[U](f: (Observable) => U): Unit} = ???
+  }
 
-  protected def childObservablesAdd(observable: Observable): Boolean = ???
+  protected def allComponentsAdd(component: Component[_]) {
+    allComponents += component.componentType
+  }
 
-  protected def childObservablesRemove(observable: Observable): Boolean = ???
+  protected def allComponentsRemove(component: Component[_]) {
+    allComponents -= component.componentType
+  }
+
+  protected def allComponentsContains(component: Component[_]): Boolean = {
+    allComponents.contains(component.componentType)
+  }
+
+  protected def availableComponent[C](implicit tagC: ClassTag[C]): Option[Component[C]] = {
+    availableComponents.get(tagC.runtimeClass).asInstanceOf[Option[Component[C]]]
+  }
+
+  protected def childObservablesAdd(component: Component[_]): Boolean = {
+    if (!availableComponents.contains(component.componentType)) {
+      availableComponents += (component.componentType -> component)
+      true
+    }
+    else {
+      false
+    }
+  }
+
+  protected def childObservablesRemove(component: Component[_]): Boolean = {
+    if (availableComponents.contains(component.componentType)) {
+      availableComponents -= component.componentType
+      true
+    }
+    else {
+      false
+    }
+  }
+
+  protected def childObservables = availableComponents.values
 }

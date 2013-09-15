@@ -10,7 +10,7 @@ import jmmo.observable.{ObservableFirer, ObservableEvent, ObservableListener, Ob
 trait ObservableElement extends ObservableFirer with SelfListenersSupport {
 
   def addObservableListener(listener: ObservableListener) {
-    if (selfListenersExists(listener)) {
+    if (selfListenersContains(listener)) {
       throw new IllegalArgumentException(s"Observable listener $listener already exists in $this")
     }
 
