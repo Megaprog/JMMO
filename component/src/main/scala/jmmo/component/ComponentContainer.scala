@@ -21,8 +21,4 @@ trait ComponentContainer extends Observable {
   def addComponent(component: Component[_])
 
   def removeComponent(component: Component[_])
-
-  def becomeAvailable(availableComponent: Component[_])
-
-  def becomeRevoked(revokedComponent: Component[_])
 }

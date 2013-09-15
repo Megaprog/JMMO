@@ -11,6 +11,14 @@ import jmmo.observable.ObservableFirer
 trait ComponentBase[A] extends Component[A] with ObservableFirer {
   protected var containerOption: Option[ComponentContainer] = None
 
+  protected def isAvailable: Boolean = {
+    containerOption.isDefined
+  }
+
+  protected def container: ComponentContainer = {
+    containerOption.get
+  }
+
   def forPrimary[U](handler: A => U): U = {
     handler(this.asInstanceOf[A])
   }
@@ -19,14 +27,6 @@ trait ComponentBase[A] extends Component[A] with ObservableFirer {
     if (tagI.runtimeClass.isInstance(this)) {
       handler(this.asInstanceOf[I])
     }
-  }
-
-  protected def isAvailable: Boolean = {
-    containerOption.isDefined
-  }
-
-  protected def container: ComponentContainer = {
-    containerOption.get
   }
 
   def containerAvailable(container: ComponentContainer) {
@@ -39,7 +39,7 @@ trait ComponentBase[A] extends Component[A] with ObservableFirer {
   }
 
   protected def onBecomeAvailable() {
-    container.becomeAvailable(this)
+    fireObservableEvent(ComponentAvailable(this))
   }
 
   def containerRevoked(container: ComponentContainer) {
@@ -54,6 +54,6 @@ trait ComponentBase[A] extends Component[A] with ObservableFirer {
   }
 
   protected def onBecomeRevoked() {
-    container.becomeRevoked(this)
+    fireObservableEvent(ComponentRevoked(this))
   }
 }

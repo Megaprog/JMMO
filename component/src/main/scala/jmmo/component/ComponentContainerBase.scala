@@ -30,10 +30,6 @@ trait ComponentContainerBase extends ComponentContainer with ObservableBase with
 
   def removeComponent(component: Component[_]) {}
 
-  def becomeAvailable(availableComponent: Component[_]) {}
-
-  def becomeRevoked(revokedComponent: Component[_]) {}
-
 
   protected def childObservables: {def foreach[U](f: (Observable) => U): Unit} = ???
 

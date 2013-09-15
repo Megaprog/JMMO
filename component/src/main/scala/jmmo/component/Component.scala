@@ -7,6 +7,10 @@ import jmmo.observable.Observable
  * User: Tomas
  * Date: 08.09.13
  * Time: 11:59
+ *
+ *<p>Fires events:</p>
+ *[[jmmo.component.ComponentAvailable]]<br>
+ *[[jmmo.component.ComponentRevoked]]<br>
  */
 trait Component[A] extends Observable {
 
@@ -19,8 +23,4 @@ trait Component[A] extends Observable {
   def containerAvailable(container: ComponentContainer)
 
   def containerRevoked(container: ComponentContainer)
-
-  def componentAvailable(component: Component[_])
-
-  def componentRevoked(component: Component[_])
 }
