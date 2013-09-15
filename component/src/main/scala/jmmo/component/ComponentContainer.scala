@@ -10,11 +10,11 @@ import scala.reflect.ClassTag
  */
 trait ComponentContainer extends Observable {
 
-  def components: Set[Class[_]]
+  def components: collection.Set[Class[_]]
 
   def isComponentAvailable(componentClass: Class[_]): Boolean
 
-  def forPrimary[C, U](handler: C => U)(implicit tagC: ClassTag[C])
+  def forPrimary[C, U](handler: C => U)(implicit tagC: ClassTag[C]): Option[U]
 
   def forSecondary[I, U](handler: I => U)(implicit tagI: ClassTag[I])
 

@@ -10,7 +10,7 @@ import scala.reflect.ClassTag
 trait ComponentBase[A] extends Component[A] {
   protected var containerOption: Option[ComponentContainer] = None
 
-  def forPrimary[U](handler: A => U) {
+  def forPrimary[U](handler: A => U): U = {
     handler(this.asInstanceOf[A])
   }
 

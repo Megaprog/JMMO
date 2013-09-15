@@ -6,8 +6,8 @@ package jmmo.observable
  * Time: 20:57
  *
  *<p>Fires events:</p>
- *[[jmmo.observable.AddedObservableEvent]]<br>
- *[[jmmo.observable.RemovedObservableEvent]]<br>
+ *[[jmmo.observable.ObservableAddedEvent]]<br>
+ *[[jmmo.observable.ObservableRemovedEvent]]<br>
  */
 trait ObservableContainer[A <: Observable] extends ObservableFirer {
 

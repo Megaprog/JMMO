@@ -1,7 +1,7 @@
 package jmmo.observable.impl
 
 import jmmo.observable._
-import jmmo.observable.AddedObservableEvent
+import jmmo.observable.ObservableAddedEvent
 
 /**
  * User: Tomas
@@ -46,11 +46,11 @@ trait ObservableContainerMut[A <: Observable] extends ObservableContainer[A]
   }
 
   protected def doFireAddedObservableEvent(source: Observable, participant: Observable) {
-    fireObservableEvent(AddedObservableEvent(source, participant))
+    fireObservableEvent(ObservableAddedEvent(source, participant))
   }
 
   protected def doFireRemovedObservableEvent(source: Observable, participant: Observable) {
-    fireObservableEvent(RemovedObservableEvent(source, participant))
+    fireObservableEvent(ObservableRemovedEvent(source, participant))
   }
 
   override protected def addChildListenerWrapper(listenerWrapper: ObservableListener) {

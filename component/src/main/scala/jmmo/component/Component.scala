@@ -11,7 +11,7 @@ trait Component[A] {
 
   def componentType: Class[A]
 
-  def forPrimary[U](handler: A => U)
+  def forPrimary[U](handler: A => U): U
 
   def forSecondary[I, U](handler: I => U)(implicit tagI: ClassTag[I])
 

@@ -12,13 +12,19 @@ import scala.reflect.ClassTag
  */
 trait ComponentContainerBase extends ComponentContainer with ObservableBase with ObservableContainerMut[Observable] with ChildListenersImmSet {
 
-  def components: Set[Class[_]] = ???
+  protected var allComponents = Set.empty[Class[_]]
+  protected var availableComponents = Map.empty[Class[_], Component[_]]
 
-  def isComponentAvailable(componentClass: Class[_]): Boolean = ???
+  def components: collection.Set[Class[_]] = allComponents
 
-  def forPrimary[C, U](handler: (C) => U)(implicit tagC: ClassTag[C]) {}
+  def isComponentAvailable(componentClass: Class[_]): Boolean = availableComponents.contains(componentClass)
 
-  def forSecondary[I, U](handler: (I) => U)(implicit tagI: ClassTag[I]) {}
+  def forPrimary[C, U](handler: C => U)(implicit tagC: ClassTag[C]): Option[U] =
+    availableComponents.get(tagC.runtimeClass) map (_.asInstanceOf[Component[C]].forPrimary(handler))
+
+  def forSecondary[I, U](handler: I => U)(implicit tagI: ClassTag[I]) {
+    availableComponents.values foreach (_.forSecondary(handler))
+  }
 
   def addComponent(component: Component[_]) {}
 

@@ -9,7 +9,7 @@ package jmmo.observable
  * Can be fired not only [[jmmo.observable.ObservableContainer]] but any other [[jmmo.observable.Observable]]
  * which contains child observables.
  */
-abstract class AddedOrRemovedObservableEvent extends ObservableEvent {
+abstract class ObservableAddedOrRemovedEvent extends ObservableEvent {
 
   /**
    * @return added or removed to(from) source `Observable`
@@ -17,6 +17,6 @@ abstract class AddedOrRemovedObservableEvent extends ObservableEvent {
   def participant: Observable
 }
 
-case class AddedObservableEvent(source: Observable, participant: Observable) extends AddedOrRemovedObservableEvent
+case class ObservableAddedEvent(source: Observable, participant: Observable) extends ObservableAddedOrRemovedEvent
 
-case class RemovedObservableEvent(source: Observable, participant: Observable) extends AddedOrRemovedObservableEvent
+case class ObservableRemovedEvent(source: Observable, participant: Observable) extends ObservableAddedOrRemovedEvent

@@ -43,8 +43,8 @@ class ObservableContainerSpec(creator: => PublicContainer[Observable]) extends W
       }
 
       "fires AddedObservableEvent" in {
-        verify(handler1).apply(AddedObservableEvent(container, child), Seq())
-        verify(handler2, never()).apply(AddedObservableEvent(container, child), Seq())
+        verify(handler1).apply(ObservableAddedEvent(container, child), Seq())
+        verify(handler2, never()).apply(ObservableAddedEvent(container, child), Seq())
       }
 
       "subscribe observable to all listeners in container which pass filter and level" in {
@@ -74,8 +74,8 @@ class ObservableContainerSpec(creator: => PublicContainer[Observable]) extends W
       }
 
       "fires RemovedObservableEvent" in {
-        verify(handler1).apply(RemovedObservableEvent(container, child), Seq())
-        verify(handler2, never()).apply(RemovedObservableEvent(container, child), Seq())
+        verify(handler1).apply(ObservableRemovedEvent(container, child), Seq())
+        verify(handler2, never()).apply(ObservableRemovedEvent(container, child), Seq())
       }
 
       "unsubscribe observable from all listeners in container" in {
