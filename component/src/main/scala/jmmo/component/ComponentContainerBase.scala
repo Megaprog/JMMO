@@ -1,9 +1,8 @@
 package jmmo.component
 
-import jmmo.observable.{Observable, ObservableBase}
+import jmmo.observable._
 import jmmo.observable.impl.{ChildListenersImmSet, ObservableContainerMut}
 import scala.reflect.ClassTag
-
 
 /**
  * User: Tomas
@@ -33,6 +32,8 @@ trait ComponentContainerBase extends ComponentContainer with ObservableBase with
 
     allComponentsAdd(component)
 
+
+
     component.containerAvailable(this)
   }
 
@@ -44,7 +45,16 @@ trait ComponentContainerBase extends ComponentContainer with ObservableBase with
     allComponentsRemove(component)
 
 
+
+    component.containerRevoked(this)
+
+    removeChildObservable(component)
   }
+
+  protected val componentListener = ObservableListener( (event, _) => event match {
+    case ComponentAvailable(component) => println(component)
+    case ComponentRevoked(component) => println(component)
+  }, level = ObservableListener.ParentLevel)
 
   protected def allComponentsAdd(component: Component[_]) {
     allComponents += component.componentType

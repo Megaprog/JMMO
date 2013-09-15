@@ -42,12 +42,13 @@ class ListenerBuilder {
     addFilter[T]((observable, chain) => filter(observable))
   }
 
-  def setLevel(level: ObservableListener.Level) {
+  def setLevel(level: ObservableListener.Level): this.type = {
     if (level < 0) {
       throw new IllegalArgumentException("The level must be greater than zero but equals " + level)
     }
 
     this.level = level
+    this
   }
 
   def build(): ObservableListener = {

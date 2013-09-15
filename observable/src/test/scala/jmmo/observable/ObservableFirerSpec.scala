@@ -48,7 +48,7 @@ class ObservableFirerSpec(creator: => PublicFirer) extends WordSpec with ShouldM
       verify(handler2).apply(event, Seq.empty)
 
       info("if listenerWrapper's level is smaller than zero event will not be handled")
-      observable.addObservableListener(ObservableListener(handler3, -1))
+      observable.addObservableListener(ObservableListener(handler3, level = -1))
       observable.publicFireObservableEvent(event)
       verifyZeroInteractions(handler3)
     }

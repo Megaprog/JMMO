@@ -22,7 +22,7 @@ class ListenerWrapperSpec extends WordSpec with ShouldMatchers {
       val observable1 = new EmptyObservable
       val observable2 = new EmptyObservable
 
-      val listener = ObservableListener((_: ObservableEvent, _: Seq[Observable]) => {}, 1)
+      val listener = ObservableListener((_, _) => {}, level = 1)
       val wrapper = ListenerWrapper(listener, 0, observable1, observable2)
 
       wrapper.wrapped should be theSameInstanceAs(listener)
@@ -34,7 +34,7 @@ class ListenerWrapperSpec extends WordSpec with ShouldMatchers {
       val observable1 = new EmptyObservable
       val observable2 = new EmptyObservable
 
-      val listener = ObservableListener((_: ObservableEvent, _: Seq[Observable]) => {}, 1)
+      val listener = ObservableListener((_, _) => {}, level = 1)
       val wrapper = ListenerWrapper(listener, 0, observable1, observable2)
 
       (wrapper match {
@@ -51,7 +51,7 @@ class ListenerWrapperSpec extends WordSpec with ShouldMatchers {
     "provide a canEqual and equals methods to be equal ListenerWrapper with same parameters" in {
       val observable1 = new EmptyObservable
       val observable2 = new EmptyObservable
-      val listener = ObservableListener((_: ObservableEvent, _: Seq[Observable]) => {}, 2)
+      val listener = ObservableListener((_, _) => {}, level = 2)
 
       val wrapper1 = ListenerWrapper(listener, 1, observable1, observable2)
       val wrapper2 = ListenerWrapper(listener, 1, observable1, observable2)

@@ -62,7 +62,7 @@ class ObservableTransparentContainerSpec(creator: ({ def foreach[U](f: Observabl
 
       "not add a listener to children if level is zero (ParentLevel)" in {
         val handler = mock[ObservableListener.Handler]
-        container.addObservableListener(ObservableListener(handler, ObservableListener.ParentLevel))
+        container.addObservableListener(ObservableListener(handler, level = ObservableListener.ParentLevel))
 
         child1.publicFireObservableEvent(event1)
         verify(handler, never()).apply(event1, Seq())
