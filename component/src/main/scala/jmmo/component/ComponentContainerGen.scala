@@ -9,7 +9,7 @@ import scala.reflect.ClassTag
  * Date: 12.09.13
  * Time: 12:11
  */
-trait ComponentContainerBase extends ComponentContainer with ObservableElement with ObservableContainerMut[Component[_]]
+trait ComponentContainerGen extends ComponentContainer with ObservableElement with ObservableContainerMut[Component[_]]
                               with AllComponentsSupport with AvailableComponentsSupport {
 
   def components: collection.Set[Class[_]] = allComponents
