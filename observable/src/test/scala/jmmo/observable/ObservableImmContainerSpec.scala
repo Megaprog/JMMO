@@ -10,7 +10,7 @@ import org.mockito.Mockito._
  * Date: 02.09.13
  * Time: 10:01
  */
-class ObservableImmContainerSpec(creator: ({ def foreach[U](f: Observable => U): Unit }) => Observable) extends WordSpec with ShouldMatchers with MockitoSugar {
+class ObservableImmContainerSpec(creator: (TraversableOnce[Observable]) => Observable) extends WordSpec with ShouldMatchers with MockitoSugar {
 
   def this() = this((children) => new ObservableImmContainerBase[Observable] { def childObservables = children })
 

@@ -9,5 +9,5 @@ import jmmo.observable.Observable
  */
 trait ChildObservablesTraversable[+A <: Observable] {
 
-  protected def childObservables: { def foreach[U](f: A => U): Unit }
+  protected def childObservables: TraversableOnce[A]
 }

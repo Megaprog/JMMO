@@ -15,5 +15,5 @@ trait ObservableContainer[A <: Observable] extends ObservableFirer {
 
   protected def removeChildObservable(observable: A): Boolean
 
-  protected def childObservables: { def foreach[U](f: A => U): Unit }
+  protected def childObservables: TraversableOnce[A]
 }
