@@ -100,7 +100,7 @@
                     <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
                     <filereports>WDF ComponentSpec.txt</filereports>
                     <stdout>W</stdout>
-                    <suites></suites>
+                    <suites>jmmo.component.ComponentSuite</suites>
                 </configuration>
                 <executions>
                     <execution>
