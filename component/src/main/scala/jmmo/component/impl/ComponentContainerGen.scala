@@ -1,8 +1,9 @@
-package jmmo.component
+package jmmo.component.impl
 
 import jmmo.observable.ObservableListener
 import jmmo.observable.impl.{ObservableGen, ObservableContainerMut}
 import scala.reflect.ClassTag
+import jmmo.component.{ComponentRevoked, ComponentAvailable, Component, ComponentContainer}
 
 /**
  * User: Tomas

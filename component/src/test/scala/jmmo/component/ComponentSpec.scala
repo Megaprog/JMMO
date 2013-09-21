@@ -2,8 +2,6 @@ package jmmo.component
 
 import org.scalatest.WordSpec
 import org.scalatest.matchers.ShouldMatchers
-import org.scalatest.mock.MockitoSugar
-import org.mockito.Mockito._
 import jmmo.component.items.{Rechargeable, RechargeableComponent}
 import java.util.concurrent.Callable
 
@@ -12,7 +10,7 @@ import java.util.concurrent.Callable
  * Date: 19.09.13
  * Time: 13:04
  */
-class ComponentSpec extends WordSpec with ShouldMatchers with MockitoSugar {
+class ComponentSpec extends WordSpec with ShouldMatchers {
 
   val component = new RechargeableComponent
 

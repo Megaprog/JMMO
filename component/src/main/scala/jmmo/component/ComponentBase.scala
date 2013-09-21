@@ -1,6 +1,7 @@
 package jmmo.component
 
 import jmmo.observable.ObservableBase
+import jmmo.component.impl.ComponentGen
 
 /**
  * User: Tomas

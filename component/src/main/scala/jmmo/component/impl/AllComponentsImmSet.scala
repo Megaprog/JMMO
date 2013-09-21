@@ -1,4 +1,6 @@
-package jmmo.component
+package jmmo.component.impl
+
+import jmmo.component.Component
 
 /**
  * User: Tomas

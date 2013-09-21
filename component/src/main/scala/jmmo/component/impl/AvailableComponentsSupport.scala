@@ -1,6 +1,7 @@
-package jmmo.component
+package jmmo.component.impl
 
 import jmmo.observable.impl.ChildObservablesSupport
+import jmmo.component.Component
 
 /**
  * User: Tomas

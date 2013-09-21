@@ -1,6 +1,7 @@
 package jmmo.component
 
 import jmmo.observable.impl.{ChildListenersImmSet, SelfListenersImmSet}
+import jmmo.component.impl.{ComponentContainerGen, AvailableComponentsImmMap, AllComponentsImmSet}
 
 /**
  * User: Tomas

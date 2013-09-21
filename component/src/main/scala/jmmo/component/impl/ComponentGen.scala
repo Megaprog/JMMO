@@ -1,7 +1,8 @@
-package jmmo.component
+package jmmo.component.impl
 
 import scala.reflect.ClassTag
 import jmmo.observable.ObservableFirer
+import jmmo.component.{ComponentRevoked, ComponentAvailable, ComponentContainer, Component}
 
 /**
  * User: Tomas
@@ -10,10 +11,6 @@ import jmmo.observable.ObservableFirer
  */
 trait ComponentGen[A] extends Component[A] with ObservableFirer {
   protected var containerOption: Option[ComponentContainer] = None
-
-  protected def isAvailable: Boolean = {
-    containerOption.isDefined
-  }
 
   protected def container: ComponentContainer = {
     containerOption.get
