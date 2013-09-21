@@ -10,8 +10,8 @@ import jmmo.component.{Component, DepComponent}
  */
 trait DepComponentGen[A] extends DepComponent[A] with ComponentGen[A] {
 
-  protected def isAvailable: Boolean = {
-    containerOption.exists(container => require.forall(container.isComponentAvailable))
+  override protected def isAvailable: Boolean = {
+    super.isAvailable && require.forall(container.isComponentAvailable)
   }
 
   override protected def onContainerAvailable() {

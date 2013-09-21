@@ -10,11 +10,7 @@ import jmmo.component.{ComponentRevoked, ComponentAvailable, ComponentContainer,
  * Time: 10:48
  */
 trait ComponentGen[A] extends Component[A] with ObservableFirer {
-  protected var containerOption: Option[ComponentContainer] = None
-
-  protected def container: ComponentContainer = {
-    containerOption.get
-  }
+  protected var container: ComponentContainer = null
 
   def forPrimary[U](handler: A => U): U = {
     handler(this.asInstanceOf[A])
@@ -27,7 +23,7 @@ trait ComponentGen[A] extends Component[A] with ObservableFirer {
   }
 
   def containerAvailable(container: ComponentContainer) {
-    this.containerOption = Some(container)
+    this.container = container
     onContainerAvailable()
   }
 
@@ -41,7 +37,7 @@ trait ComponentGen[A] extends Component[A] with ObservableFirer {
 
   def containerRevoked(container: ComponentContainer) {
     onContainerRevoked()
-    this.containerOption = None
+    this.container = null
   }
 
   protected def onContainerRevoked() {
@@ -53,4 +49,9 @@ trait ComponentGen[A] extends Component[A] with ObservableFirer {
   protected def onBecomeRevoked() {
     fireObservableEvent(ComponentRevoked(this))
   }
+
+  protected def isAvailable: Boolean = {
+    container ne null
+  }
+
 }
