@@ -8,13 +8,14 @@ import language.existentials
 import org.mockito.Mockito._
 import java.lang.IllegalArgumentException
 import scala.reflect.ClassTag
+import java.util.concurrent.Callable
 
 /**
  * User: Tomas
  * Date: 19.09.13
  * Time: 13:05
  */
-class ComponentContainerSpec(creator: => (ComponentContainer, (Class[_], Component[_]), (Class[_], Component[_]), (Class[_], DepComponent[_])))
+class ComponentContainerSpec(creator: => (ComponentContainer, (Class[_ <: Runnable], Component[_]), (Class[_], Component[_]), (Class[_], DepComponent[_])))
   extends WordSpec with ShouldMatchers with MockitoSugar {
 
   def this() = this(
@@ -103,10 +104,27 @@ class ComponentContainerSpec(creator: => (ComponentContainer, (Class[_], Compone
       flag = false
       container.forPrimary[Any, Unit](_ => flag = true)(ClassTag(slaveType)).isDefined should be (false)
       flag should be (false)
+
+      container.addComponent(masterComponent)
     }
 
     "provide `forSecondary` method to handle some interfaces supported by any available components in container" in {
 
+      info("Runnable is supported by someComponent and will be handled")
+
+      var runnableCalls = 0
+      container.forSecondary { (runnable: Runnable) =>
+        runnableCalls += 1
+      }
+      runnableCalls should be (1)
+
+      info("Callable is not supported and not handled")
+
+      var callableCalls = 0
+      container.forSecondary { (callable: Callable[_]) =>
+        callableCalls += 1
+      }
+      callableCalls should be (0)
     }
   }
 }
