@@ -23,9 +23,9 @@ class ComponentSpec extends WordSpec with ShouldMatchers {
     "provide a forPrimary method to handle the primary component interface" in {
       var flag = false
 
-      (component.forPrimary { (rechargeable) =>
+      (component.forPrimary { (countable) =>
         flag = true
-        rechargeable.count
+        countable.count
       }) should be (1)
 
       flag should be (true)

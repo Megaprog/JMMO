@@ -15,7 +15,8 @@ import jmmo.observable.impl.ListenerWrapperSpec
 class ComponentSuite extends WordSpec {
 
   override val nestedSuites = List(
-    new ComponentSpec
+    new ComponentSpec,
+    new ComponentContainerSpec
   )
 
   "Components" should {
