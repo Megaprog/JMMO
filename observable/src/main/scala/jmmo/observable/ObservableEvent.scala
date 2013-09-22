@@ -18,8 +18,6 @@ trait ObservableEvent {
    * @return the source of the event
    */
   def source: Observable
-
-  override def toString = s"ObservableEvent(source=$source)"
 }
 
 object ObservableEvent {

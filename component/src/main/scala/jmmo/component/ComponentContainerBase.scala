@@ -1,7 +1,7 @@
 package jmmo.component
 
 import jmmo.observable.impl.{ChildListenersImmSet, SelfListenersImmSet}
-import jmmo.component.impl.{ComponentContainerGen, AvailableComponentsImmMap, AllComponentsImmSet}
+import jmmo.component.impl.{ComponentContainerGen, AvailableComponentsImmMap, AllComponentsImmMap}
 
 /**
  * User: Tomas
@@ -9,4 +9,4 @@ import jmmo.component.impl.{ComponentContainerGen, AvailableComponentsImmMap, Al
  * Time: 23:04
  */
 trait ComponentContainerBase extends ComponentContainerGen with SelfListenersImmSet with ChildListenersImmSet
-                                                           with AllComponentsImmSet with AvailableComponentsImmMap
+                                                           with AllComponentsImmMap with AvailableComponentsImmMap

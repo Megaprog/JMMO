@@ -13,9 +13,9 @@ import jmmo.component.{ComponentRevoked, ComponentAvailable, Component, Componen
 trait ComponentContainerGen extends ComponentContainer with ObservableGen with ObservableContainerMut[Component[_]]
                               with AllComponentsSupport with AvailableComponentsSupport {
 
-  def components: collection.Set[Class[_]] = allComponents
+  def components: collection.Set[Class[_]] = allComponents.keySet
 
-  def isComponentAvailable(componentClass: Class[_]): Boolean = availableComponent(componentClass).isDefined
+  def isComponentAvailable(componentType: Class[_]): Boolean = availableComponent(componentType).isDefined
 
   def forPrimary[C, U](handler: C => U)(implicit tagC: ClassTag[C]): Option[U] =
     availableComponent(tagC.runtimeClass.asInstanceOf[Class[C]]) map (_.forPrimary(handler))
@@ -25,7 +25,7 @@ trait ComponentContainerGen extends ComponentContainer with ObservableGen with O
   }
 
   def addComponent(component: Component[_]) {
-    if (allComponentsContains(component)) {
+    if (allComponents.contains(component.componentType)) {
       throw new IllegalArgumentException(s"Can't add $component with duplicate component type ${component.componentType} to $this")
     }
 
@@ -36,12 +36,13 @@ trait ComponentContainerGen extends ComponentContainer with ObservableGen with O
     component.containerAvailable(this)
   }
 
-  def removeComponent(component: Component[_]) {
-    if (!allComponentsContains(component)) {
-      throw new IllegalArgumentException(s"$component was not found in $this")
+  def removeComponent(componentType: Class[_]) {
+    val component = allComponents.getOrElse(componentType, null)
+    if (component eq null) {
+      throw new IllegalArgumentException(s"$componentType was not found in $this")
     }
 
-    allComponentsRemove(component)
+    allComponentsRemove(componentType)
 
     component.removeObservableListener(componentListener)
 

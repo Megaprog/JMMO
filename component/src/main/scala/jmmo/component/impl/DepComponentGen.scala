@@ -35,5 +35,7 @@ trait DepComponentGen[A] extends DepComponent[A] with ComponentGen[A] {
     case ObservableRemovedEvent(_, component: Component[_]) if require(component.componentType) =>
       onBecomeRevoked()
 
+    case _ =>
+
   }, level = ObservableListener.ParentLevel)
 }

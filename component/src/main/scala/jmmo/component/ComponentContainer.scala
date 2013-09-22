@@ -12,7 +12,7 @@ trait ComponentContainer extends Observable {
 
   def components: collection.Set[Class[_]]
 
-  def isComponentAvailable(componentClass: Class[_]): Boolean
+  def isComponentAvailable(componentType: Class[_]): Boolean
 
   def forPrimary[C, U](handler: C => U)(implicit tagC: ClassTag[C]): Option[U]
 
@@ -20,5 +20,5 @@ trait ComponentContainer extends Observable {
 
   def addComponent(component: Component[_])
 
-  def removeComponent(component: Component[_])
+  def removeComponent(componentClass: Class[_])
 }

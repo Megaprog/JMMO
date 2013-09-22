@@ -11,9 +11,7 @@ trait AllComponentsSupport {
 
   protected def allComponentsAdd(component: Component[_])
 
-  protected def allComponentsRemove(component: Component[_])
+  protected def allComponentsRemove(componentType: Class[_])
 
-  protected def allComponentsContains(component: Component[_]): Boolean
-
-  protected def allComponents: collection.Set[Class[_]]
+  protected def allComponents: collection.Map[Class[_], Component[_]]
 }

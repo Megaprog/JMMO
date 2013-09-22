@@ -2,7 +2,7 @@ package jmmo.component
 
 import org.scalatest.WordSpec
 import org.scalatest.matchers.ShouldMatchers
-import jmmo.component.items.{Rechargeable, RechargeableComponent}
+import jmmo.component.example.{Countable, CountableComponent}
 import java.util.concurrent.Callable
 
 /**
@@ -12,12 +12,12 @@ import java.util.concurrent.Callable
  */
 class ComponentSpec extends WordSpec with ShouldMatchers {
 
-  val component = new RechargeableComponent
+  val component = new CountableComponent
 
   "A Component" should {
 
     "provide a componentType method to returns Class of component interface" in {
-      component.componentType should be (classOf[Rechargeable])
+      component.componentType should be (classOf[Countable])
     }
 
     "provide a forPrimary method to handle the primary component interface" in {
@@ -25,7 +25,7 @@ class ComponentSpec extends WordSpec with ShouldMatchers {
 
       (component.forPrimary { (rechargeable) =>
         flag = true
-        rechargeable.getQuantityInCartridge
+        rechargeable.count
       }) should be (1)
 
       flag should be (true)
