@@ -7,7 +7,7 @@ import jmmo.observable.Observable
  * Date: 01.09.13
  * Time: 21:36
  */
-trait ChildObservablesTraversable[+A <: Observable] {
+trait ChildElementsTraversable[+A <: Observable] {
 
-  protected def childObservables: TraversableOnce[A]
+  protected def childElements: TraversableOnce[A]
 }

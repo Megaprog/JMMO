@@ -9,7 +9,7 @@ import jmmo.observable.{Observable, ObservableListener}
  *
  * Immutable container is not a firer. It is not not required to has [[jmmo.observable.ObservableFirer.fireObservableEvent()]] method
  */
-trait ObservableContainerImm[+A <: Observable] extends Observable with ChildObservablesTraversable[A] {
+trait ObservableContainerImm[+A <: Observable] extends Observable with ChildElementsTraversable[A] {
 
   abstract override def addObservableListener(listener: ObservableListener) {
     super.addObservableListener(listener)
@@ -36,10 +36,10 @@ trait ObservableContainerImm[+A <: Observable] extends Observable with ChildObse
   protected def createChildListener(listener: ObservableListener): ObservableListener = ListenerWrapper(listener, this)
 
   protected def addChildListenerWrapper(listenerWrapper: ObservableListener) {
-    childObservables foreach (_.addObservableListener(listenerWrapper))
+    childElements foreach (_.addObservableListener(listenerWrapper))
   }
 
   protected def removeChildListenerWrapper(listenerWrapper: ObservableListener) {
-    childObservables foreach (_.removeObservableListener(listenerWrapper))
+    childElements foreach (_.removeObservableListener(listenerWrapper))
   }
 }

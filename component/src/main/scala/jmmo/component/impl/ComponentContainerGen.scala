@@ -21,7 +21,7 @@ trait ComponentContainerGen extends ComponentContainer with ObservableGen with O
     availableComponent(tagC.runtimeClass.asInstanceOf[Class[C]]) map (_.forPrimary(handler))
 
   def forSecondary[I, U](handler: I => U)(implicit tagI: ClassTag[I]) {
-    childObservables foreach (_.forSecondary(handler))
+    childElements foreach (_.forSecondary(handler))
   }
 
   def addComponent(component: Component[_]) {
@@ -48,7 +48,7 @@ trait ComponentContainerGen extends ComponentContainer with ObservableGen with O
 
     component.containerRevoked(this)
 
-    removeChildObservable(component)
+    removeChildElement(component)
   }
 
   protected val componentListener = ObservableListener( (event, _) => event match {
@@ -58,7 +58,7 @@ trait ComponentContainerGen extends ComponentContainer with ObservableGen with O
         throw new IllegalArgumentException(s"$component was already available in $this")
       }
 
-      addChildObservable(component)
+      addChildElement(component)
     }
 
     case ComponentRevoked(component) => {
@@ -67,7 +67,7 @@ trait ComponentContainerGen extends ComponentContainer with ObservableGen with O
         throw new IllegalArgumentException(s"$component was not available in $this")
       }
 
-      removeChildObservable(component)
+      removeChildElement(component)
     }
 
   }, level = ObservableListener.ParentLevel)

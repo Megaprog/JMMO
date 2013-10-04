@@ -9,10 +9,10 @@ import jmmo.observable.ObservableAddedEvent
  * Time: 23:21
  */
 trait ObservableContainerMut[A <: Observable] extends ObservableContainer[A]
-    with ObservableContainerImm[A] with ChildListenersSupport with ChildObservablesSupport[A] {
+    with ObservableContainerImm[A] with ChildListenersSupport with ChildElementsSupport[A] {
 
-  protected def addChildObservable(observable: A): Boolean = {
-    if (childObservablesAdd(observable)) {
+  protected def addChildElement(observable: A): Boolean = {
+    if (childElementsAdd(observable)) {
       onAddChildObservable(observable)
       true
     }
@@ -21,8 +21,8 @@ trait ObservableContainerMut[A <: Observable] extends ObservableContainer[A]
     }
   }
 
-  protected def removeChildObservable(observable: A): Boolean = {
-    if (childObservablesRemove(observable)) {
+  protected def removeChildElement(observable: A): Boolean = {
+    if (childElementsRemove(observable)) {
       onRemoveChildObservable(observable)
       true
     }

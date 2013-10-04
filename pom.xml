@@ -13,6 +13,7 @@
         <module>property</module>
         <module>grid</module>
         <module>component</module>
+        <module>clientfx</module>
     </modules>
 
 </project>

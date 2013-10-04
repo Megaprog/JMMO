@@ -9,11 +9,11 @@ package jmmo.observable
  *[[jmmo.observable.ObservableAddedEvent]]<br>
  *[[jmmo.observable.ObservableRemovedEvent]]<br>
  */
-trait ObservableContainer[A <: Observable] extends ObservableFirer {
+trait ObservableContainer[A] extends ObservableFirer {
 
-  protected def addChildObservable(observable: A): Boolean
+  protected def addChildElement(element: A): Boolean
 
-  protected def removeChildObservable(observable: A): Boolean
+  protected def removeChildElement(element: A): Boolean
 
-  protected def childObservables: TraversableOnce[A]
+  protected def childElements: TraversableOnce[A]
 }

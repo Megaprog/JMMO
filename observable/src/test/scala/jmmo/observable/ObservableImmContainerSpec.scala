@@ -12,7 +12,7 @@ import org.mockito.Mockito._
  */
 class ObservableImmContainerSpec(creator: (TraversableOnce[Observable]) => Observable) extends WordSpec with ShouldMatchers with MockitoSugar {
 
-  def this() = this((children) => new ObservableImmContainerBase[Observable] { def childObservables = children })
+  def this() = this((children) => new ObservableImmContainerBase[Observable] { def childElements = children })
 
   val child1 = new ObservableBase with PublicFirer {}
   val child2 = new ObservableBase with PublicFirer {}

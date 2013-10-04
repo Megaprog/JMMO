@@ -89,7 +89,7 @@ class ObservableContainerSpec(creator: => PublicContainer[Observable]) extends W
 }
 
 trait PublicContainer[A <: Observable] extends ObservableContainer[A] with PublicFirer {
-  def publicAddChildObservable(observable: A): Boolean = addChildObservable(observable)
-  def publicRemoveChildObservable(observable: A): Boolean = removeChildObservable(observable)
-  def publicChildObservables = childObservables
+  def publicAddChildObservable(observable: A): Boolean = addChildElement(observable)
+  def publicRemoveChildObservable(observable: A): Boolean = removeChildElement(observable)
+  def publicChildObservables = childElements
 }

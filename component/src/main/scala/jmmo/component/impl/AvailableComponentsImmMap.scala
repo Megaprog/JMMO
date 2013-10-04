@@ -11,7 +11,7 @@ trait AvailableComponentsImmMap extends AvailableComponentsSupport {
 
   protected var availableComponents = createAvailableComponents
 
-  protected def childObservablesAdd(component: Component[_]): Boolean = {
+  protected def childElementsAdd(component: Component[_]): Boolean = {
     if (!availableComponents.contains(component.componentType)) {
       availableComponents += (component.componentType -> component)
       true
@@ -21,7 +21,7 @@ trait AvailableComponentsImmMap extends AvailableComponentsSupport {
     }
   }
 
-  protected def childObservablesRemove(component: Component[_]): Boolean = {
+  protected def childElementsRemove(component: Component[_]): Boolean = {
     if (availableComponents.contains(component.componentType)) {
       availableComponents -= component.componentType
       true
@@ -31,7 +31,7 @@ trait AvailableComponentsImmMap extends AvailableComponentsSupport {
     }
   }
 
-  protected def childObservables = availableComponents.values
+  protected def childElements = availableComponents.values
 
   protected def availableComponent[C](componentClass: Class[C]): Option[Component[C]] = {
     availableComponents.get(componentClass).asInstanceOf[Option[Component[C]]]

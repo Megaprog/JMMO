@@ -1,6 +1,6 @@
 package jmmo.observable
 
-import jmmo.observable.impl.{ChildObservablesImmSet, ChildListenersImmSet, ObservableContainerMut}
+import jmmo.observable.impl.{ChildElementsImmSet, ChildListenersImmSet, ObservableContainerMut}
 
 /**
  * User: Tomas
@@ -8,4 +8,4 @@ import jmmo.observable.impl.{ChildObservablesImmSet, ChildListenersImmSet, Obser
  * Time: 9:34
  */
 trait ObservableContainerBase[A <: Observable] extends ObservableBase with ObservableContainerMut[A]
-    with ChildListenersImmSet with ChildObservablesImmSet[A]
+    with ChildListenersImmSet with ChildElementsImmSet[A]
