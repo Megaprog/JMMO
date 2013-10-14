@@ -41,7 +41,7 @@ object ObservableListener {
 
   val PassAll: Filter= (_, _) => true
 
-  val NotPassLevel: Level = -1 //
+  val NotPassLevel: Level = -1
 
   val ParentLevel: Level = 0
 
