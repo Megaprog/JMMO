@@ -7,14 +7,14 @@ import jmmo.observable.{ObservableFirer, ObservableEvent, ObservableListener, Ob
  * Date: 09.08.13
  * Time: 9:32
  */
-trait ObservableGen extends ObservableFirer with SelfListenersSupport {
+trait ObservableGen extends ObservableFirer with SelfListenersSupport with ObservableInstanceSupport {
 
   def addObservableListener(listener: ObservableListener) {
     if (selfListenersContains(listener)) {
       throw new IllegalArgumentException(s"Observable listener $listener already exists in $this")
     }
 
-    if (listener.level >= 0 && listener.filter(this, Seq.empty)) {
+    if (listener.level >= 0 && listener.filter(observableInstance, Seq.empty)) {
       selfListenersAdd(listener)
     }
   }

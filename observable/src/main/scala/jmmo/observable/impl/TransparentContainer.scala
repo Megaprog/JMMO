@@ -9,5 +9,5 @@ import jmmo.observable.{Observable, ObservableListener}
  */
 trait TransparentContainer[+A <: Observable] extends ObservableContainerImm[A] {
 
-  abstract override protected def createChildListener(listener: ObservableListener): ObservableListener = listener
+  override protected def createChildListener(listener: ObservableListener): ObservableListener = listener
 }

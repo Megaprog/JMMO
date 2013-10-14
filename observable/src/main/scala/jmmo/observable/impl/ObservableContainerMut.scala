@@ -8,8 +8,8 @@ import jmmo.observable.ObservableAddedEvent
  * Date: 31.08.13
  * Time: 23:21
  */
-trait ObservableContainerMut[A <: Observable] extends ObservableContainer[A]
-    with ObservableContainerImm[A] with ChildListenersSupport with ChildElementsSupport[A] {
+trait ObservableContainerMut[A <: Observable] extends ObservableContainer[A] with ObservableContainerImm[A]
+    with ChildListenersSupport with ChildElementsSupport[A] with ObservableInstanceSupport {
 
   protected def addChildElement(observable: A): Boolean = {
     if (childElementsAdd(observable)) {
@@ -32,7 +32,7 @@ trait ObservableContainerMut[A <: Observable] extends ObservableContainer[A]
   }
 
   protected def onAddChildObservable(observable: A) {
-    doFireAddedObservableEvent(this, observable)
+    doFireAddedObservableEvent(observableInstance, observable)
 
     //subscribe child
     childListeners foreach observable.addObservableListener
@@ -42,7 +42,7 @@ trait ObservableContainerMut[A <: Observable] extends ObservableContainer[A]
     //unsubscribe child
     childListeners foreach observable.removeObservableListener
 
-    doFireRemovedObservableEvent(this, observable)
+    doFireRemovedObservableEvent(observableInstance, observable)
   }
 
   protected def doFireAddedObservableEvent(source: Observable, participant: Observable) {

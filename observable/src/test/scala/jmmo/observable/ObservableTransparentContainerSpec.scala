@@ -60,9 +60,20 @@ class ObservableTransparentContainerSpec(creator: (TraversableOnce[Observable]) 
         verify(handler, never()).apply(event2, Seq())
       }
 
-      "not add a listener to children if level is zero (ParentLevel)" in {
+      "allow to add a listener to children if level is zero because elements it transparent container like without container" in {
         val handler = mock[ObservableListener.Handler]
         container.addObservableListener(ObservableListener(handler, level = ObservableListener.ParentLevel))
+
+        child1.publicFireObservableEvent(event1)
+        verify(handler).apply(event1, Seq())
+
+        child2.publicFireObservableEvent(event2)
+        verify(handler).apply(event2, Seq())
+      }
+
+      "add a listener to children if level is under -1" in {
+        val handler = mock[ObservableListener.Handler]
+        container.addObservableListener(ObservableListener(handler, level = ObservableListener.NotPassLevel))
 
         child1.publicFireObservableEvent(event1)
         verify(handler, never()).apply(event1, Seq())

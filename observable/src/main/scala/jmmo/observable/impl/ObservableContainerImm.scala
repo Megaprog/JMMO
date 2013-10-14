@@ -13,14 +13,14 @@ trait ObservableContainerImm[+A <: Observable] extends Observable with ChildElem
 
   abstract override def addObservableListener(listener: ObservableListener) {
     super.addObservableListener(listener)
-    if (listener.level > 0) {
+    if (listener.level >= 0) {
       addChildListener(listener)
     }
   }
 
   abstract override def removeObservableListener(listener: ObservableListener) {
     super.removeObservableListener(listener)
-    if (listener.level > 0) {
+    if (listener.level >= 0) {
       removeChildListener(listener)
     }
   }
