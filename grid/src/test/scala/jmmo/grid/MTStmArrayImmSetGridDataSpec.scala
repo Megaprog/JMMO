@@ -13,7 +13,7 @@ import org.scalatest.matchers.ShouldMatchers
 class MTStmArrayImmSetGridDataSpec extends WordSpec with ShouldMatchers {
 
   override val nestedSuites = {
-    List(new MTBlockingGridDataSpec(new TestGrid(10, 200, 200) with MTStmArrayImmSetGridData[Dummy]))
+    Vector(new MTBlockingGridDataSpec(new TestGrid(10, 200, 200) with MTStmArrayImmSetGridData[Dummy]))
   }
 
   "An MTStmArrayImmSetGridData" should {

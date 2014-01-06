@@ -30,7 +30,7 @@ class MTSeriesSpec(grid: AbstractGrid[Dummy], numTests: Int = 1, numParallel: In
   })
 
   override val nestedSuites = {
-    List.fill(numTests)(new MTBlockingGridDataSpec(grid, numParallel, numObjects, false))
+    Vector.fill(numTests)(new MTBlockingGridDataSpec(grid, numParallel, numObjects, false))
   }
 
   //  override val nestedSuites = {

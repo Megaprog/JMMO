@@ -13,7 +13,7 @@ import org.scalatest.matchers.ShouldMatchers
 class STImmSetGridDataSpec extends WordSpec with ShouldMatchers {
 
   override val nestedSuites = {
-    List(new AbstractGridSpec(new TestGrid(10, 200, 200) with STArrayGridData[Dummy] with STImmSetGridData[Dummy]))
+    Vector(new AbstractGridSpec(new TestGrid(10, 200, 200) with STArrayGridData[Dummy] with STImmSetGridData[Dummy]))
   }
 
   "An STImmSetGridData" should {

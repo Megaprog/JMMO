@@ -4,7 +4,7 @@
 
 package jmmo.observable
 
-import org.scalatest.WordSpec
+import org.scalatest.{Suite, WordSpec}
 import jmmo.observable.impl.ListenerWrapperSpec
 
 /**
@@ -14,7 +14,7 @@ import jmmo.observable.impl.ListenerWrapperSpec
  */
 class ObservableSuite extends WordSpec {
 
-  override val nestedSuites = List(
+  override val nestedSuites = Vector(
     new ObservableListenerSpec,
     new ObservableFirerSpec,
     new ListenerWrapperSpec,

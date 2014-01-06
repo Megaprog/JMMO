@@ -17,7 +17,7 @@ class ObservablePropertySpec(creator: (String) => ObservableProperty[Int] with P
 
   val Name = "TestProp"
 
-  override val nestedSuites = List(
+  override val nestedSuites = Vector(
     new ObservableFirerSpec(creator(Name))
   )
 

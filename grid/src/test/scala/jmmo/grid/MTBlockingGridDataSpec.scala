@@ -11,6 +11,7 @@ import scala.collection.mutable.Set
 import util.Random
 import jmmo.util.{Point2d, Cell}
 import org.scalatest.time.{Seconds, Millis, Span}
+import org.scalatest.concurrent.PatienceConfiguration.{Interval, Timeout}
 
 /**
  * @author Tomas Shestakov
@@ -26,7 +27,7 @@ class MTBlockingGridDataSpec(grid: AbstractGrid[Dummy], numParallel: Int = 4, nu
     //    List(new AbstractGridSpec(new TestGrid(10, 100, 100) with STArrayGridData[Dummy]
     //                                                         with STMutSetGridData[Dummy]
     //                                                         with MTBlockingGridData[Dummy] ))
-    List(new AbstractGridSpec(grid))
+    Vector(new AbstractGridSpec(grid))
   }
 
   def checkObjectsInGrid(grid: AbstractGrid[Dummy], objs: Set[Dummy]): Boolean = {

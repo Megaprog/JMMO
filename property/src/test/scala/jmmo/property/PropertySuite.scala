@@ -9,7 +9,7 @@ import org.scalatest.WordSpec
  */
 class PropertySuite extends WordSpec {
 
-  override val nestedSuites = List(
+  override val nestedSuites = Vector(
     new ObservablePropertySpec
   )
 

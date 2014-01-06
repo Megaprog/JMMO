@@ -13,7 +13,7 @@ import org.scalatest.matchers.ShouldMatchers
 class MTPartialLocksGridDataSpec extends WordSpec with ShouldMatchers {
 
   override val nestedSuites = {
-    List(new MTBlockingGridDataSpec(new TestGrid(10, 200, 200) with /*MTConcMapGridData[Dummy]*/ STArrayGridData[Dummy]
+    Vector(new MTBlockingGridDataSpec(new TestGrid(10, 200, 200) with /*MTConcMapGridData[Dummy]*/ STArrayGridData[Dummy]
                                      with STImmSetGridData[Dummy] with MTPartialLocksGridData[Dummy] {
       def numLockedCells = 10
     }))

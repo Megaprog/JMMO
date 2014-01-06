@@ -1,6 +1,6 @@
 package jmmo.observable
 
-import org.scalatest.WordSpec
+import org.scalatest.{Suite, WordSpec}
 import org.scalatest.matchers.ShouldMatchers
 import org.scalatest.mock.MockitoSugar
 import org.mockito.Mockito._
@@ -14,7 +14,7 @@ class ObservableContainerSpec(creator: => PublicContainer[Observable]) extends W
 
   def this() = this(new ObservableContainerBase[Observable] with PublicContainer[Observable] {})
 
-  override val nestedSuites = List(
+  override val nestedSuites = Vector(
     new ObservableFirerSpec(creator),
     new ObservableImmContainerSpec((children) => {
       val innerContainer = creator

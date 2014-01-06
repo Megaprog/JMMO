@@ -13,7 +13,7 @@ import org.scalatest.WordSpec
  */
 class GridSuite extends WordSpec {
 
-  override val nestedSuites = List(
+  override val nestedSuites = Vector(
     new GridDimensionSpec,
     new GridObjectsSpec,
     new AbstractGridSpec,

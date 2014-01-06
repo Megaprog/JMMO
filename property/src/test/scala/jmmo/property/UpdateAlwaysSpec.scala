@@ -17,7 +17,7 @@ class UpdateAlwaysSpec(creator: (String) => UpdateAlways[Int] with PublicFirer) 
 
   val Name = "TestAlways"
 
-  override val nestedSuites = List(
+  override val nestedSuites = Vector(
     new ObservableFirerSpec(creator(Name)),
     new ObservablePropertySpec(creator)
   )

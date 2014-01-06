@@ -4,7 +4,7 @@
 
 package jmmo.grid
 
-import org.scalatest.WordSpec
+import org.scalatest.{Failed, Canceled, WordSpec}
 import org.scalatest.matchers.ShouldMatchers
 import jmmo.util.{Point2d, Cell}
 
@@ -33,7 +33,7 @@ class GridSelectionSpec(gridSelection: AbstractGrid[Dummy]) extends WordSpec wit
   val o4 = new Dummy(Point2d(65, 25), Set(Cell(-1, 0), Cell(0, 0), Cell(1, 0)))
   val o5 = new Dummy(Point2d(outerWidth - 1, outerHeight - 1), Set(Cell(0, 0)))
 
-  override protected def withFixture(test: NoArgTest) {
+  override protected def withFixture(test: NoArgTest) = {
     //innitialize grid
     addObject(o0)
     addObject(o1)
@@ -42,9 +42,9 @@ class GridSelectionSpec(gridSelection: AbstractGrid[Dummy]) extends WordSpec wit
     addObject(o4)
     addObject(o5)
 
-    try {
-      if (cellSize == 10) test() //run test only when cellSize = 10
-    }
+    try
+      if (cellSize == 10) test() else Canceled("cell size is too small") //run test only when cellSize = 10
+
     finally {
       //clear grid
       removeObject(o0)

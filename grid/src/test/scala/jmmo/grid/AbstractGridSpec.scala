@@ -17,7 +17,7 @@ class AbstractGridSpec(gridObjects: AbstractGrid[Dummy]) extends WordSpec with S
   def this() = this(new TestGrid(1000, 200, 200) with STMapGridData[Dummy] with STMutSetGridData[Dummy])
 
   override val nestedSuites = {
-    List(new GridDimensionSpec(gridObjects), new GridObjectsSpec(gridObjects), new GridSelectionSpec(gridObjects))
+    Vector(new GridDimensionSpec(gridObjects), new GridObjectsSpec(gridObjects), new GridSelectionSpec(gridObjects))
   }
 
   //  override protected def withFixture(test: NoArgTest) {

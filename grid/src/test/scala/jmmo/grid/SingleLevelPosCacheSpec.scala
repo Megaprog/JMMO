@@ -31,7 +31,7 @@ class SingleLevelPosCacheSpec(gridSelection: AbstractGrid[Dummy]) extends WordSp
   val o4 = new Dummy(Point2d(65, 25), Set(Cell(-1, 0), Cell(0, 0), Cell(1, 0)))
   val o5 = new Dummy(Point2d(outerWidth - 1, outerHeight - 1), Set(Cell(0, 0)))
 
-  override protected def withFixture(test: NoArgTest) {
+  override protected def withFixture(test: NoArgTest) = {
     //innitialize grid
     addObject(o0)
     addObject(o1)
@@ -40,9 +40,9 @@ class SingleLevelPosCacheSpec(gridSelection: AbstractGrid[Dummy]) extends WordSp
     addObject(o4)
     addObject(o5)
 
-    try {
+    try
       test()
-    }
+
     finally {
       //clear grid
       removeObject(o0)
