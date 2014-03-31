@@ -7,13 +7,22 @@
     <version>1.0</version>
     <packaging>pom</packaging>
 
+    <description>The set of frameworks for MMO game server engine written for JVM on Scala and Java. </description>
+    <url>https://github.com/Megaprog/JMMO</url>
+    <developers>
+        <developer>
+            <name>Tomas Shestakov</name>
+            <email>shestakovte@gmail.com</email>
+        </developer>
+    </developers>
+
     <modules>
         <module>util</module>
         <module>observable</module>
         <module>property</module>
         <module>grid</module>
         <module>component</module>
-        <module>clientfx</module>
+        <module>bresenham</module>
     </modules>
 
 </project>

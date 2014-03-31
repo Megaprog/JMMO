@@ -10,7 +10,7 @@
     <packaging>jar</packaging>
 
     <description>Bresenham’s line drawing algorithm implementation in 2D and 3D dimensions</description>
-    <url>https://github.com/JMMO/bresenham</url>
+    <url>https://github.com/Megaprog/JMMO</url>
     <developers>
         <developer>
             <name>Tomas Shestakov</name>
