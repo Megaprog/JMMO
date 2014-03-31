@@ -15,7 +15,7 @@ import tags.Suite
 @Suite
 class UtilSuite extends WordSpec {
 
-  override val nestedSuites = List(
+  override val nestedSuites = Vector(
     new PointsSpec,
     new MapCountAllSpec,
     new MapSetAllSpec,

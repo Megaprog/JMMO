@@ -137,7 +137,7 @@ class MapCountSpec(mapCount: MapCount[String]) extends WordSpec with ShouldMatch
  * Run tests for all MapCount derived classes
  */
 class MapCountAllSpec extends WordSpec {
-  override val nestedSuites = List(
+  override val nestedSuites = Vector(
     new MapCountSpec(MapCount.imm),
     new MapCountSpec(MapCount.mut)
   )

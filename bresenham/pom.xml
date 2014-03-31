@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  ~ Copyright (C) 2013 Tomas Shestakov. <https://github.com/Megaprog/JMMO>
-  -->
-
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>jmmo</groupId>
-    <artifactId>util</artifactId>
+    <artifactId>bresenham</artifactId>
     <version>1.0</version>
+    <packaging>jar</packaging>
+
+    <description>Bresenham’s line drawing algorithm implementation in 2D and 3D dimensions</description>
+    <url>https://github.com/JMMO/bresenham</url>
+    <developers>
+        <developer>
+            <name>Tomas Shestakov</name>
+            <email>shestakovte@gmail.com</email>
+        </developer>
+    </developers>
 
     <dependencies>
 
@@ -68,12 +74,9 @@
                 <version>1.0-RC2</version>
                 <configuration>
                     <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
-                    <junitxml>.</junitxml>
-                    <filereports>WDF UtilSpec.txt</filereports>
+                    <filereports>WDF LatencyBotsSpec.txt</filereports>
                     <stdout>W</stdout>
-                    <suites>jmmo.util.UtilSuite</suites>
-                    <!--<wildcardSuites>**/*Suite*</wildcardSuites>-->
-                    <!--<tagsToExclude>tags.Suite,tags.Sub</tagsToExclude>-->
+                    <!--<suites>jmmo.observable.ObservableSuite</suites>-->
                 </configuration>
                 <executions>
                     <execution>

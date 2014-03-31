@@ -110,7 +110,7 @@ class MapSetSpec(mapSet: MapSet[String, Int]) extends WordSpec with ShouldMatche
  * Run tests for all MapSet derived classes
  */
 class MapSetAllSpec extends WordSpec {
-  override val nestedSuites = List(
+  override val nestedSuites = Vector(
     new MapSetSpec(MapSet.mutMut),
     new MapSetSpec(MapSet.mutImm),
     new MapSetSpec(MapSet.immMut),
